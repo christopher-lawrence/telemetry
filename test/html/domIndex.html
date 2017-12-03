@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <script>
+        const incrementCount = (id) => {
+            const element = document.getElementById(id);
+            let value = Number(element.innerHTML);
+            element.innerHTML = value + 1;
+        }
+    </script>
+    <script type="text/javascript" src="http://localhost:8080/telemetry.js"></script>
+</head>
+
+<body>
+    <div id="heading">
+        <h2>Testing this out.</h2>
+    </div>
+    <div id="image">
+        <img src="../assets/Cat03.jpg" style="height: 50%;" onclick="incrementCount('img-click-count')" />
+    </div>
+    <div>
+        <div id="img-click-count">0</div>
+    </div>
+    <div>
+        <p onclick="incrementCount('link-click-count')">Link</p>
+    </div>
+    <div>
+        <div id="link-click-count">0</div>
+    </div>
+</body>
+
+</html>

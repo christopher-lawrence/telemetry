@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "npm",
+            "script": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build Watch",
+            "type": "npm",
+            "script": "build:watch"
+        },
+        {
+            "label": "Webpack Dev Server",
+            "type": "npm",
+            "script": "start:dev"
+        },
+        {
+            "label": "Open FireFox",
+            "command": "FireFox",
+            "osx": {
+                "command": "open",
+                "args": [
+                    "-a firefox",
+                    "-g ~/src/telemetry/test/index.html"
+                ]
+            }
+        }
+    ]
+}
