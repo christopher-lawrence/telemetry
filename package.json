@@ -1,18 +1,23 @@
 {
     "name": "telemetry",
     "version": "1.0.0",
-    "description": "",
+    "description": "Telemery event data",
     "main": "telemetry.js",
     "scripts": {
         "build": "webpack",
         "build:watch": "webpack --watch",
         "start:dev": "webpack-dev-server --open",
-        "tests": "mocha -r ts-node/register test/**/*.spec.ts"
+        "test": "mocha -r ts-node/register test/**/*.spec.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:jquery/jquery.git"
     },
     "author": "Chris Lawrence",
     "license": "ISC",
     "devDependencies": {
         "@types/chai": "^4.0.6",
+        "@types/jquery": "^3.2.16",
         "@types/jsdom": "^11.0.4",
         "@types/mocha": "^2.2.44",
         "@types/sinon": "^4.0.0",
@@ -32,6 +37,7 @@
         "webpack-dev-server": "^2.9.4"
     },
     "dependencies": {
-        "express": "^4.16.2"
+        "express": "^4.16.2",
+        "jquery": "^3.2.1"
     }
 }

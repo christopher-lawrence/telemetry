@@ -6,21 +6,30 @@ import { IListenerService } from "./interfaces/iListenerService";
 import ListenerService from "./listenerService";
 import { ILogger } from "./interfaces/iLogger";
 import LogService from "./logService";
+import JQueryParser from "../parsers/jqueryParser";
 
 export default class ParserService implements IParserService {
-    private parser: IParser;
+    private parsers: IParser[];
     private logger: ILogger;
     private allElements: NodeListOf<Element>;
 
     constructor(allElements: NodeListOf<Element>) {
-        this.parser = new DomParser();
+        this.parsers = [new DomParser(), new JQueryParser()];
         this.logger = LogService.getInstance();
         this.allElements = allElements;
     }
 
     public executeParsers(): IElementListener[] {
-        const parsed = this.parser.parse(this.allElements);
-        this.logger.debug(`[executeParsers]: Dom parser event count: ${parsed.length}`);
+        const parsed: IElementListener[] = [];
+        let parser: IParser;
+        let result: IElementListener[];
+        for (let i = 0, iLen = this.parsers.length; i < iLen; i++) {
+            parser = this.parsers[i];
+            result = parser.parse(this.allElements);
+            parsed.push(...result);
+            this.logger.debug(`[executeParsers]: ${parser.name} finished. ${result.length} elements with events found.`);
+        }
+        this.logger.debug(`[executeParsers]: Parsers finished. Elements with event count: ${parsed.length}`);
         return parsed;
     }
 
