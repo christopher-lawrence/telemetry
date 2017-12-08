@@ -4,8 +4,15 @@ import { listenerCount } from "cluster";
 import { IListener } from "../common/interfaces/ilistener";
 import Utilities from "../common/utilities";
 
+/** Most of the types on jQuery seem to just be objects which is why there is so much 'any' in here */
+
 export default class JQueryParser implements IParser {
-    public readonly name: string = "jQuery";
+    private name: string = "jQuery";
+
+    /** TODO: Add tests for this */
+    public getName(): string {
+        return this.name;
+    }
 
     parse(elements: NodeListOf<Element>): IElementListener[] {
         /** jQuery 1.5 and 1.6 use a cache for all event data. The elements are not needed */
@@ -16,29 +23,33 @@ export default class JQueryParser implements IParser {
     }
 
     private getJQueryFiveSix(): IElementListener[] {
-        // if (!window.hasOwnProperty("jQuery")) {
-        //     return []
-        // }
-        if (!jQuery ||
+        if (!this.globalJQueryExists() ||
             Utilities.versionCompare(jQuery.fn.jquery, '<', '1.5') ||
             Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')) {
             return [];
         }
+        this.name += "1.5_1.6";
         const result: IElementListener[] = [];
         for (let j in (jQuery as any).cache) {
             result.push(...this.handleJQuery((jQuery as any).cache[j]));
         }
+
         return result;
     }
 
+    private globalJQueryExists(): boolean {
+        return jQuery !== undefined;
+    }
+
     private handleJQuery(cache: any): IElementListener[] {
-        cache.forEach((key: any, val: any) => {
+        const results: IElementListener[] = [];
+        $.each(cache, (key: any, val: any) => {
             if (val.handle) {
-                return this.getNodeEvents(val, val.handle.elem);
+                results.push(...this.getNodeEvents(val, val.handle.elem));
             }
         });
 
-        return [];
+        return results;
     }
 
     private getNodeEvents(eventsObject: any, node: Node): IElementListener[] {
@@ -56,8 +67,7 @@ export default class JQueryParser implements IParser {
 
         let func;
 
-        const foundElements: IElementListener[] = [];
-        const anyFoundElements: any[] = [];
+        const foundElements: any[] = [];
         for (let type in events) {
             if (events.hasOwnProperty(type)) {
                 if (type == 'live') {
@@ -78,13 +88,8 @@ export default class JQueryParser implements IParser {
                             aNodes.push(node);
                         }
 
-                        const anyListeners: any[] = [];
+                        const listeners: any[] = [];
                         for (let k = 0, kLen = aNodes.length; k < kLen; k++) {
-                            // const element: IElementListener = {
-                            //     node: aNodes[k],
-                            //     listeners: []
-                            // };
-
                             if (typeof oEvents[j].origHandler != 'undefined') {
                                 func = oEvents[j].origHandler.toString();
                             } else if (typeof oEvents[j].handler != 'undefined') {
@@ -92,7 +97,7 @@ export default class JQueryParser implements IParser {
                             } else {
                                 func = oEvents[j].toString();
                             }
-                            anyFoundElements.push({
+                            foundElements.push({
                                 "node": aNodes[k],
                                 "listeners": [{
                                     "type": type,
@@ -108,6 +113,6 @@ export default class JQueryParser implements IParser {
             }
         }
 
-        return anyFoundElements;
+        return foundElements;
     }
 }

@@ -21,7 +21,7 @@ export default class EventHandlerService implements IEventHandlerService {
     public handleDomContentLoadedEvent(event: Event): void {
         this.logger.debug("[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent creation time: " + event.timeStamp);
 
-        setTimeout(() => this.startParsers(), 3000);
+        setTimeout(() => this.startParsers(), 1000);
     }
 
     public handleLoadEvent(event: Event): void {

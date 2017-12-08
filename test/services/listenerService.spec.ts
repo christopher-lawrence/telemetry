@@ -5,6 +5,7 @@ import ListenerService from '../../src/services/listenerService';
 import EventHandlerService from '../../src/services/eventHandlerService';
 import { Event } from '_debugger';
 import * as sinon from 'sinon';
+import DomParser from '../../src/parsers/domParser';
 
 describe('listenerService', () => {
     const testHtmlFile = "./test/html/domIndex.html";
@@ -25,11 +26,11 @@ describe('listenerService', () => {
 
     it('adds the default event handler', () => {
         const allElements = dom.window.document.getElementsByTagName("*");
-        const parserService = new ParserService(allElements);
+        const domParser = new DomParser();
         const listenerService = new ListenerService();
 
         const mockEventHandler = sinon.spy();
-        const result = parserService.executeParsers();
+        const result = domParser.parse(allElements);
         result.map(r => listenerService.AddListeners(r, mockEventHandler));
         const element = result[0];
         simulateClick(element.node);

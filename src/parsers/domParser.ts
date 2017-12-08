@@ -4,7 +4,12 @@ import EventTypes from '../common/eventTypes';
 import { IListener } from '../common/interfaces/ilistener';
 
 export default class DomParser implements IParser {
-    public readonly name: string = "DOM 0 event";
+    private name: string = "DOM 0 event";
+
+    /** TODO: Add tests for this */
+    public getName(): string {
+        return this.name;
+    }
 
     public parse(elements: NodeListOf<Element>): IElementListener[] {
         const foundElements: IElementListener[] = [];

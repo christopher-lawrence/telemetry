@@ -1,7 +1,7 @@
 import { IElementListener } from "../../common/interfaces/ielementListener";
 
 export interface IParser {
-    name: string;
+    getName(): string;
     parse(elements: NodeListOf<Element>): IElementListener[];
 }
 
