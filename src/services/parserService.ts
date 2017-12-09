@@ -27,7 +27,7 @@ export default class ParserService implements IParserService {
             parser = this.parsers[i];
             result = parser.parse(this.allElements);
             parsed.push(...result);
-            this.logger.debug(`[executeParsers]: ${parser.getName()} finished. ${result.length} elements with events found.`);
+            this.logger.debug(`[executeParsers]: ${parser.name()} finished. ${result.length} elements with events found.`);
         }
         this.logger.debug(`[executeParsers]: Parsers finished. Elements with event count: ${parsed.length}`);
         return parsed;

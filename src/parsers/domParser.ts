@@ -4,11 +4,10 @@ import EventTypes from '../common/eventTypes';
 import { IListener } from '../common/interfaces/ilistener';
 
 export default class DomParser implements IParser {
-    private name: string = "DOM 0 event";
+    private _name: string = "DOM";
 
-    /** TODO: Add tests for this */
-    public getName(): string {
-        return this.name;
+    public name(): string {
+        return this._name;
     }
 
     public parse(elements: NodeListOf<Element>): IElementListener[] {
@@ -25,7 +24,7 @@ export default class DomParser implements IParser {
                         type: types[j],
                         func: (currentElement as any)['on' + types[j]].toString(),
                         removed: false,
-                        source: this.name
+                        source: this._name
                     });
                 }
             }

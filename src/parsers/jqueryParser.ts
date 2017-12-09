@@ -7,11 +7,10 @@ import Utilities from "../common/utilities";
 /** Most of the types on jQuery seem to just be objects which is why there is so much 'any' in here */
 
 export default class JQueryParser implements IParser {
-    private name: string = "jQuery";
+    private _name: string = "jQuery";
 
-    /** TODO: Add tests for this */
-    public getName(): string {
-        return this.name;
+    public name(): string {
+        return this._name;
     }
 
     parse(elements: NodeListOf<Element>): IElementListener[] {
@@ -28,7 +27,7 @@ export default class JQueryParser implements IParser {
             Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')) {
             return [];
         }
-        this.name += "1.5_1.6";
+        this._name += "1.5_1.6";
         const result: IElementListener[] = [];
         for (let j in (jQuery as any).cache) {
             result.push(...this.handleJQuery((jQuery as any).cache[j]));
