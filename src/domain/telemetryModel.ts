@@ -1,16 +1,19 @@
 import { ITelemetryTarget, TelemetryTargetTypes } from './itelemetryTarget';
+import { IElementListener } from '../common/interfaces/ielementListener';
 
 export default class TelemetryModel {
     public readonly page: string;
     public readonly target: ITelemetryTarget;
     public readonly type: string;
     public readonly originalEvent: Event;
+    public readonly telemetryElement: IElementListener;
 
-    constructor(event: Event) {
+    constructor(event: Event, telemetryElement: IElementListener) {
         this.originalEvent = event;
         this.page = window.location.href;
         this.type = event.type;
         this.target = this.getTarget();
+        this.telemetryElement = telemetryElement;
     }
 
     private getTarget(): ITelemetryTarget {
@@ -55,7 +58,7 @@ export default class TelemetryModel {
         const stringify: string[] = [];
         for (let i = 0; i < attributes.length; i++) {
             const attr = attributes.item(i);
-            stringify.push(attr.nodeName + ': ' + attr.nodeValue);
+            stringify.push(`${attr.nodeName}: ${attr.nodeValue}`);
         }
         return stringify.join(',');
     }

@@ -17,7 +17,9 @@
             "fields-first"
         ],
         "object-literal-shorthand": false,
-        "forin": false
+        "forin": false,
+        "prefer-template": true,
+        "curly": true
     },
     "rulesDirectory": []
 }

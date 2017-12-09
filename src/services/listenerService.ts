@@ -22,11 +22,11 @@ export default class ListenerService implements IListenerService {
         const listeners = element.listeners;
         listeners.map((l) =>
             element.node.addEventListener(l.type, (event) => handler
-                ? handler(event) : this.defaultEventHandler(event)));
+                ? handler(event) : this.defaultEventHandler(event, element)));
     }
 
-    private defaultEventHandler(event: Event): void {
+    private defaultEventHandler(event: Event, element: IElementListener): void {
         this.logger.debug('[EventHandlerService]:[handleInitialEvent]');
-        this.reportingService.report(event);
+        this.reportingService.report(event, element);
     }
 }

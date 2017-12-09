@@ -16,7 +16,7 @@ export default class JQueryParser implements IParser {
     public parse(elements: NodeListOf<Element>): IElementListener[] {
         /** jQuery 1.5 and 1.6 use a cache for all event data. The elements are not needed */
         const result: IElementListener[] = [];
-        result.push(...this.getJQueryFiveSix());
+        result.push(...this.getJQueryFiveSix(), ...this.getJQueryFourSeven());
 
         return result;
     }
@@ -27,13 +27,30 @@ export default class JQueryParser implements IParser {
             Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')) {
             return [];
         }
-        this.parserName += '1.5_1.6';
+        this.parserName += jQuery.fn.jquery;
         const result: IElementListener[] = [];
         for (const j in (jQuery as any).cache) {
             result.push(...this.handleJQuery((jQuery as any).cache[j]));
         }
 
         return result;
+    }
+
+    private getJQueryFourSeven(): IElementListener[] {
+        if (!this.globalJQueryExists()) {
+            return [];
+        }
+
+        this.parserName += jQuery.fn.jquery;
+        if ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.4')
+            && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.5')) ||
+            ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')
+                && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.8')))
+        ) {
+            return this.handleJQuery((jQuery as any).cache);
+        }
+
+        return [];
     }
 
     private globalJQueryExists(): boolean {
@@ -78,7 +95,7 @@ export default class JQueryParser implements IParser {
                 for (const j in oEvents) {
                     if (oEvents.hasOwnProperty(j)) {
                         const aNodes = [];
-                        let sjQuery = 'jQuery' + jQuery.fn.jquery;
+                        let sjQuery = this.parserName;
 
                         if (typeof oEvents[j].selector !== 'undefined' && oEvents[j].selector !== null) {
                             aNodes.push($(oEvents[j].selector, node));

@@ -19,9 +19,9 @@ export default class DomParser implements IParser {
             const currentElement = elements[i];
             const listeners: IListener[] = [];
             for (let j = 0; j < jLength; j++) {
-                if (typeof (currentElement as any)['on' + types[j]] === 'function') {
+                if (typeof (currentElement as any)[`on${types[j]}`] === 'function') {
                     listeners.push({
-                        func: (currentElement as any)['on' + types[j]].toString(),
+                        func: (currentElement as any)[`on${types[j]}`].toString(),
                         removed: false,
                         source: this.parserName,
                         type: types[j],

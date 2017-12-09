@@ -18,7 +18,7 @@ export default class ConsoleLogger implements ILogger {
 
     private format(message: any): string {
         if (typeof message === 'string') {
-            return `[${Date.now()}] ` + message;
+            return `[${Date.now()}] ${message}`;
         }
         return message;
     }

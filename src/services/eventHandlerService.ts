@@ -19,8 +19,8 @@ export default class EventHandlerService implements IEventHandlerService {
     }
 
     public handleDomContentLoadedEvent(event: Event): void {
-        this.logger.debug(
-            '[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent creation time: ' + event.timeStamp);
+        // tslint:disable-next-line:max-line-length
+        this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent creation time: ${event.timeStamp}`);
 
         setTimeout(() => this.startParsers(), 1000);
     }
@@ -30,9 +30,8 @@ export default class EventHandlerService implements IEventHandlerService {
         /** TODO: Send performance information */
         const domContentLoadedEventStart = window.performance.timing.domContentLoadedEventStart;
         const domContentLoadedEventEnd = window.performance.timing.domContentLoadedEventEnd;
-        this.logger.debug(
-            '[handleLoadEvent][Window]:DOM content load time (calculated): '
-            + (domContentLoadedEventEnd - domContentLoadedEventStart));
+        // tslint:disable-next-line:max-line-length
+        this.logger.debug(`[handleLoadEvent][Window]:DOM content load time (calculated): ${(domContentLoadedEventEnd - domContentLoadedEventStart)}`);
     }
 
     private startParsers() {

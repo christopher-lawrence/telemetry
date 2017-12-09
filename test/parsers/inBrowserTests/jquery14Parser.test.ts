@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import JQueryParser from '../../../src/parsers/jqueryParser';
 import { setTimeout } from 'timers';
 
-describe('jQuery 1.5 parser', () => {
+describe('jQuery 1.4 parser', () => {
     let allElements: NodeListOf<Element>;
     before(() => {
         allElements = document.getElementsByTagName('*');
@@ -21,7 +21,7 @@ describe('jQuery 1.5 parser', () => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(parser.name()).to.be.equal('jQuery1.5.21.5.2', 'Incorrect version reported');
+            expect(parser.name()).to.be.equal('jQuery1.4.4', 'Incorrect version reported');
             done();
         }, 500);
     });
