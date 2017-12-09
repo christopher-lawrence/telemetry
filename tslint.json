@@ -9,7 +9,15 @@
         "quotemark": [
             true,
             "single"
-        ]
+        ],
+        "one-variable-per-declaration": false,
+        "no-unused-expression": false,
+        "member-ordering": [
+            true,
+            "fields-first"
+        ],
+        "object-literal-shorthand": false,
+        "forin": false
     },
     "rulesDirectory": []
 }
