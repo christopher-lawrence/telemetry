@@ -3,19 +3,16 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        telemetry: "./src/telemetry.ts"
+        jquery15ParserSpec: "./test/parsers/jquery15Parser.spec.ts",
+        jquery16ParserSpec: "./test/parsers/jquery16Parser.spec.ts"
     },
     output: {
-        path: __dirname + '/dist',
+        path: __dirname + '/test/dist',
         filename: "[name].js",
         devtoolModuleFilenameTemplate: '[absolute-resource-path]'
     },
     // Enable source maps
     devtool: 'inline-source-map',
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        port: 8080
-    },
     resolve: {
         extensions: ['*', '.webpack.js', '.web.js', '.ts', '.js']
     },
