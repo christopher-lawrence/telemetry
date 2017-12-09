@@ -3,8 +3,10 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        jquery15ParserSpec: "./test/parsers/jquery15Parser.spec.ts",
-        jquery16ParserSpec: "./test/parsers/jquery16Parser.spec.ts"
+        jquery14ParserBrowserTest: "./test/parsers/inBrowserTests/jquery14Parser.test.ts",
+        jquery15ParserBrowserTest: "./test/parsers/inBrowserTests/jquery15Parser.test.ts",
+        jquery16ParserBrowserTest: "./test/parsers/inBrowserTests/jquery16Parser.test.ts",
+        jquery17ParserBrowserTest: "./test/parsers/inBrowserTests/jquery17Parser.test.ts"
     },
     output: {
         path: __dirname + '/test/dist',
