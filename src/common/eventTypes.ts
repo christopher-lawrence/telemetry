@@ -16,6 +16,6 @@ export default class EventTypes {
         'keypress',
         'keyup',
         'load',
-        'unload'
+        'unload',
     ];
 }

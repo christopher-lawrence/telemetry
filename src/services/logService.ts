@@ -1,6 +1,6 @@
-import { ILogger } from "./interfaces/iLogger";
-import { IListener } from "../common/interfaces/ilistener";
-import ConsoleLogger from "../domain/framework/consoleLogger";
+import { ILogger } from './interfaces/iLogger';
+import { IListener } from '../common/interfaces/ilistener';
+import ConsoleLogger from '../domain/framework/consoleLogger';
 
 export default class LogService {
     private static instance: LogService;
@@ -32,7 +32,6 @@ export default class LogService {
     public info(message?: any, ...optionalParameters: any[]) {
         this.logger.info(message, optionalParameters);
     }
-
     private constructor(logger: ILogger) {
         this.logger = logger;
     }

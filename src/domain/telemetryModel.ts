@@ -1,4 +1,4 @@
-import { ITelemetryTarget, TelemetryTargetTypes } from "./itelemetryTarget";
+import { ITelemetryTarget, TelemetryTargetTypes } from './itelemetryTarget';
 
 export default class TelemetryModel {
     public readonly page: string;
@@ -17,46 +17,46 @@ export default class TelemetryModel {
         const elementTarget = this.originalEvent.target as Element;
         if (elementTarget) {
             const target: ITelemetryTarget = {
-                type: TelemetryTargetTypes.element,
+                attributeString: this.getAttributeString(elementTarget.attributes),
                 tagName: elementTarget.tagName,
-                attributeString: this.getAttributeString(elementTarget.attributes)
-            }
+                type: TelemetryTargetTypes.element,
+            };
             return target;
         }
 
         const windowTarget = this.originalEvent.target as Window;
         if (windowTarget) {
             const target: ITelemetryTarget = {
+                attributeString: '',
+                tagName: 'window',
                 type: TelemetryTargetTypes.window,
-                tagName: "window",
-                attributeString: "",
-            }
+            };
             return target;
         }
 
         const documentTarget = this.originalEvent.target as Document;
         if (documentTarget) {
             const target: ITelemetryTarget = {
+                attributeString: '',
+                tagName: 'document',
                 type: TelemetryTargetTypes.document,
-                tagName: "document",
-                attributeString: "",
-            }
+            };
             return target;
         }
 
         return {
+            attributeString: '',
+            tagName: '',
             type: TelemetryTargetTypes.unknown,
-            tagName: "",
-            attributeString: ""
-        } as ITelemetryTarget
+        } as ITelemetryTarget;
     }
 
     private getAttributeString(attributes: NamedNodeMap): string {
-        let stringify: string[] = [];
+        const stringify: string[] = [];
         for (let i = 0; i < attributes.length; i++) {
             const attr = attributes.item(i);
-            stringify.push(attr.nodeName + ": " + attr.nodeValue);
+            stringify.push(attr.nodeName + ': ' + attr.nodeValue);
         }
-        return stringify.join(",");
+        return stringify.join(',');
     }
 }

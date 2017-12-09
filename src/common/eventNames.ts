@@ -1,8 +1,8 @@
 export default class EventNames {
-    public static Names: Array<string> = [
-        "click",
-        "error",
-        "submit",
-        "change",
+    public static Names: string[] = [
+        'click',
+        'error',
+        'submit',
+        'change',
     ];
 }

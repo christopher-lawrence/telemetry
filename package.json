@@ -4,11 +4,13 @@
     "description": "Telemery event data",
     "main": "telemetry.js",
     "scripts": {
-        "build": "webpack",
+        "build": "npm run lint && webpack",
         "build:watch": "webpack --watch",
         "build:testBundles": "webpack --config webpack.config.test.js",
+        "deploy": "npm run build && npm run test",
         "start:dev": "webpack-dev-server --open",
-        "test": "mocha -r ts-node/register test/**/*.spec.ts"
+        "test": "mocha -r ts-node/register test/**/*.spec.ts",
+        "lint": "tslint --project ./"
     },
     "repository": {
         "type": "git",

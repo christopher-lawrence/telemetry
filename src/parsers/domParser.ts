@@ -4,10 +4,10 @@ import EventTypes from '../common/eventTypes';
 import { IListener } from '../common/interfaces/ilistener';
 
 export default class DomParser implements IParser {
-    private _name: string = "DOM";
+    private parserName: string = 'DOM';
 
     public name(): string {
-        return this._name;
+        return this.parserName;
     }
 
     public parse(elements: NodeListOf<Element>): IElementListener[] {
@@ -19,22 +19,22 @@ export default class DomParser implements IParser {
             const currentElement = elements[i];
             const listeners: IListener[] = [];
             for (let j = 0; j < jLength; j++) {
-                if (typeof (currentElement as any)['on' + types[j]] == 'function') {
+                if (typeof (currentElement as any)['on' + types[j]] === 'function') {
                     listeners.push({
-                        type: types[j],
                         func: (currentElement as any)['on' + types[j]].toString(),
                         removed: false,
-                        source: this._name
+                        source: this.parserName,
+                        type: types[j],
                     });
                 }
             }
             if (listeners.length > 0) {
                 foundElements.push({
+                    listeners: listeners,
                     node: currentElement,
-                    listeners: listeners
                 });
             }
         }
         return foundElements;
-    };
+    }
 }

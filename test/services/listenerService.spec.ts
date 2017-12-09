@@ -8,32 +8,32 @@ import * as sinon from 'sinon';
 import DomParser from '../../src/parsers/domParser';
 
 describe('listenerService', () => {
-    const testHtmlFile = "./test/html/domIndex.html";
+    const testHtmlFile = './test/html/domIndex.html';
     let dom: JSDOM;
 
     const simulateClick = (element: Element) => {
-        const event = dom.window.document.createEvent("HTMLEvents");
-        event.initEvent("click", false, true);
+        const event = dom.window.document.createEvent('HTMLEvents');
+        event.initEvent('click', false, true);
         element.dispatchEvent(event);
     };
 
     beforeEach(() => {
-        return JSDOM.fromFile(testHtmlFile, { runScripts: "dangerously" })
+        return JSDOM.fromFile(testHtmlFile, { runScripts: 'dangerously' })
             .then((jsdom) => {
                 dom = jsdom;
             });
     });
 
     it('adds the default event handler', () => {
-        const allElements = dom.window.document.getElementsByTagName("*");
+        const allElements = dom.window.document.getElementsByTagName('*');
         const domParser = new DomParser();
         const listenerService = new ListenerService();
 
         const mockEventHandler = sinon.spy();
         const result = domParser.parse(allElements);
-        result.map(r => listenerService.AddListeners(r, mockEventHandler));
+        result.map((r) => listenerService.AddListeners(r, mockEventHandler));
         const element = result[0];
         simulateClick(element.node);
         expect(mockEventHandler.called).to.be.true;
     });
-})
+});

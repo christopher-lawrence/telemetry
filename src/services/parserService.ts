@@ -1,12 +1,12 @@
-import { IParserService } from "./interfaces/iParserService";
-import { IParser } from "../parsers/interfaces/iParser";
-import DomParser from "../parsers/domParser";
-import { IElementListener } from "../common/interfaces/iElementListener";
-import { IListenerService } from "./interfaces/iListenerService";
-import ListenerService from "./listenerService";
-import { ILogger } from "./interfaces/iLogger";
-import LogService from "./logService";
-import JQueryParser from "../parsers/jqueryParser";
+import { IParserService } from './interfaces/iParserService';
+import { IParser } from '../parsers/interfaces/iParser';
+import DomParser from '../parsers/domParser';
+import { IElementListener } from '../common/interfaces/iElementListener';
+import { IListenerService } from './interfaces/iListenerService';
+import ListenerService from './listenerService';
+import { ILogger } from './interfaces/iLogger';
+import LogService from './logService';
+import JQueryParser from '../parsers/jqueryParser';
 
 export default class ParserService implements IParserService {
     private parsers: IParser[];
@@ -27,7 +27,8 @@ export default class ParserService implements IParserService {
             parser = this.parsers[i];
             result = parser.parse(this.allElements);
             parsed.push(...result);
-            this.logger.debug(`[executeParsers]: ${parser.name()} finished. ${result.length} elements with events found.`);
+            this.logger.debug(
+                `[executeParsers]: ${parser.name()} finished. ${result.length} elements with events found.`);
         }
         this.logger.debug(`[executeParsers]: Parsers finished. Elements with event count: ${parsed.length}`);
         return parsed;
@@ -35,7 +36,7 @@ export default class ParserService implements IParserService {
 
     private logElement(elementListener: IElementListener) {
         this.logger.debug(`node: ${elementListener.node}`);
-        elementListener.listeners.forEach(l => {
+        elementListener.listeners.forEach((l) => {
             this.logger.debug(`window.location: ${window.location}`);
             this.logger.debug(`func: ${l.func}`);
             this.logger.debug(`removed: ${l.removed}`);
