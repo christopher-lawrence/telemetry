@@ -27,7 +27,6 @@ export default class JQueryParser implements IParser {
             Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')) {
             return [];
         }
-        this.parserName += jQuery.fn.jquery;
         const result: IElementListener[] = [];
         for (const j in (jQuery as any).cache) {
             result.push(...this.handleJQuery((jQuery as any).cache[j]));
@@ -41,7 +40,6 @@ export default class JQueryParser implements IParser {
             return [];
         }
 
-        this.parserName += jQuery.fn.jquery;
         if ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.4')
             && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.5')) ||
             ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')
@@ -72,13 +70,17 @@ export default class JQueryParser implements IParser {
         if (typeof eventsObject !== 'object') {
             return [];
         }
+
+        /** We are probably returning items -- set the name */
+        this.parserName += jQuery.fn.jquery;
+
         let events;
         if (typeof eventsObject.events === 'object') {
             events = eventsObject.events;
         }
 
         if (!events) {
-            events = $.data(eventsObject, 'events');
+            events = ($ as any)._data(eventsObject, 'events');
         }
 
         let func;
@@ -93,7 +95,11 @@ export default class JQueryParser implements IParser {
                 const oEvents = events[type];
 
                 for (const j in oEvents) {
-                    if (oEvents.hasOwnProperty(j)) {
+                    /** #10 - jQuery 1.7
+                     * - Problem: Reporting an extra event per element
+                     * - Resolution: validate the event property is an object
+                     */
+                    if (oEvents.hasOwnProperty(j) && typeof oEvents[j] === 'object') {
                         const aNodes = [];
                         let sjQuery = this.parserName;
 
