@@ -19,7 +19,8 @@
         "object-literal-shorthand": false,
         "forin": false,
         "prefer-template": true,
-        "curly": true
+        "curly": true,
+        "space-before-function-paren": false
     },
     "rulesDirectory": []
 }
