@@ -2,13 +2,13 @@
 
 <head>
     <script>
-        const incrementCount = (id) => {
+        const inlineIncrementCount = (id) => {
             const element = document.getElementById(id);
             let value = Number(element.innerHTML);
             element.innerHTML = value + 1;
         }
     </script>
-    <!-- <script type="text/javascript" src="http://localhost:8080/telemetry.js"></script> -->
+    <script type="text/javascript" src="http://localhost:8080/telemetry.js"></script>
 </head>
 
 <body>
@@ -16,17 +16,20 @@
         <h2>Testing this out.</h2>
     </div>
     <div id="image">
-        <img src="../assets/Cat03.jpg" style="height: 50%;" onclick="incrementCount('img-click-count')" />
+        <img src="../assets/Cat03.jpg" style="height: 50%;" onclick="inlineIncrementCount('img-click-count')" />
+        <!-- <img src="../assets/Cat03.jpg" style="height: 50%;" /> -->
     </div>
     <div>
         <div id="img-click-count">0</div>
     </div>
-    <div>
-        <p onclick="incrementCount('link-click-count')">Link</p>
+    <div id="link">
+        <p onclick="inlineIncrementCount('link-click-count')">Link</p>
+        <!-- <p>Link</p> -->
     </div>
     <div>
         <div id="link-click-count">0</div>
     </div>
+    <script type="text/javascript" src="../js/dom.js"></script>
 </body>
 
 </html>
