@@ -19,6 +19,9 @@ export default class DomParser implements IParser {
             const currentElement = elements[i];
             const listeners: IListener[] = [];
             for (let j = 0; j < jLength; j++) {
+                /** TODO: an element with multiple of the same type seem to always return
+                 * the same function
+                 */
                 if (typeof (currentElement as any)[`on${types[j]}`] === 'function') {
                     listeners.push({
                         func: (currentElement as any)[`on${types[j]}`].toString(),
