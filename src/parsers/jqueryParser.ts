@@ -14,7 +14,7 @@ export default class JQueryParser implements IParser {
     }
 
     public parse(elements: NodeListOf<Element>): IElementListener[] {
-        /** jQuery 1.5 and 1.6 use a cache for all event data. The elements are not needed */
+        /** jQuery uses a cache for all event data. The elements are not needed */
         const result: IElementListener[] = [];
         result.push(...this.getJQueryFiveSix(), ...this.getJQueryFourSeven());
 
@@ -23,8 +23,8 @@ export default class JQueryParser implements IParser {
 
     private getJQueryFiveSix(): IElementListener[] {
         if (!this.globalJQueryExists() ||
-            Utilities.versionCompare(jQuery.fn.jquery, '<', '1.5') ||
-            Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')) {
+            (Utilities.versionCompare(jQuery.fn.jquery, '<', '1.5') ||
+                Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7'))) {
             return [];
         }
         const result: IElementListener[] = [];
@@ -43,7 +43,7 @@ export default class JQueryParser implements IParser {
         if ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.4')
             && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.5')) ||
             ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')
-                && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.8')))
+                && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.9')))
         ) {
             return this.handleJQuery((jQuery as any).cache);
         }
@@ -52,7 +52,7 @@ export default class JQueryParser implements IParser {
     }
 
     private globalJQueryExists(): boolean {
-        return jQuery !== undefined;
+        return typeof (jQuery) !== 'undefined';
     }
 
     private handleJQuery(cache: any): IElementListener[] {

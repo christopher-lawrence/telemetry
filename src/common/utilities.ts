@@ -1,4 +1,8 @@
 export default class Utilities {
+    public static globalJQueryExists(): boolean {
+        return typeof (jQuery) !== 'undefined';
+    }
+
     public static versionCompare(version: string, operator: string, compareVersion: string) {
         const a1 = version.split('.');
         const b1 = compareVersion.split('.');

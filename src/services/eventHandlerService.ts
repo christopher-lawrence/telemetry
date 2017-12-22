@@ -22,6 +22,7 @@ export default class EventHandlerService implements IEventHandlerService {
         // tslint:disable-next-line:max-line-length
         this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent creation time: ${event.timeStamp}`);
 
+        this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent setTimeout begin ${Date.now()}`);
         setTimeout(() => this.startParsers(), 1000);
     }
 
@@ -35,6 +36,7 @@ export default class EventHandlerService implements IEventHandlerService {
     }
 
     private startParsers() {
+        this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent setTimeout end ${Date.now()}`);
         this.logger.debug('[startParsers]: Starting parsers...');
         /** DOM is loaded -- start parsers */
         const parsed = this.parserService.executeParsers();
