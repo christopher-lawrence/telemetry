@@ -43,7 +43,7 @@ export default class JQueryParser implements IParser {
         if ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.4')
             && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.5')) ||
             ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')
-                && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.9')))
+                && Utilities.versionCompare(jQuery.fn.jquery, '<', '2.0')))
         ) {
             return this.handleJQuery((jQuery as any).cache);
         }
