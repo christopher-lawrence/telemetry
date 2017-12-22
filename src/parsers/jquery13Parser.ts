@@ -23,7 +23,7 @@ export default class JQuery13Parser implements IParser {
     }
 
     private getElements(): IElementListener[] {
-        if (!jQuery || Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.4')) {
+        if (!Utilities.globalJQueryExists() || Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.4')) {
             return [];
         }
 
@@ -63,7 +63,7 @@ export default class JQuery13Parser implements IParser {
     }
 
     private getLiveElements(): IElementListener[] {
-        if (!jQuery || (jQuery.fn as any).live !== 'undefined' ||
+        if (!Utilities.globalJQueryExists() || (jQuery.fn as any).live !== 'undefined' ||
             typeof jQuery.data === 'undefined' ||
             typeof jQuery.data(document as any, 'events') === 'undefined' ||
             typeof jQuery.data(document as any, 'events').live === 'undefined') {

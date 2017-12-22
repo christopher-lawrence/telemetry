@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import JQueryParser from '../../../src/parsers/jqueryParser';
 import { setTimeout } from 'timers';
 
-describe('jQuery 1.4 parser', () => {
+describe('jQuery 1.8 parser', () => {
     let allElements: NodeListOf<Element>;
     before(() => {
         allElements = document.getElementsByTagName('*');
@@ -12,7 +12,7 @@ describe('jQuery 1.4 parser', () => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(result.length).to.be.equal(2, 'parser did not return correct number of elementListeners');
+            expect(result.length).to.be.eq(2, 'parser did not return correct number of elementListeners');
             done();
         }, 500);
     });
@@ -31,7 +31,7 @@ describe('jQuery 1.4 parser', () => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(parser.name()).to.be.equal('jQuery1.4.41.4.4', 'Incorrect version reported');
+            expect(parser.name()).to.equal('jQuery1.8.31.8.3', 'Incorrect version reported');
             done();
         }, 500);
     });
