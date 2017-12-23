@@ -31,7 +31,7 @@ describe('jQuery 1.6 parser', () => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(parser.name()).to.be.equal('jQuery1.6.41.6.4', 'Incorrect version reported');
+            expect(parser.name()).to.be.equal('jQuery 1.6.4', 'Incorrect version reported');
             done();
         }, 500);
     });

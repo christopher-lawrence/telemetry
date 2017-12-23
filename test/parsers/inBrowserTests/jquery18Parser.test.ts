@@ -31,7 +31,7 @@ describe('jQuery 1.8 parser', () => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(parser.name()).to.equal('jQuery1.8.31.8.3', 'Incorrect version reported');
+            expect(parser.name()).to.equal('jQuery 1.8.3', 'Incorrect version reported');
             done();
         }, 500);
     });

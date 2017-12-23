@@ -16,7 +16,7 @@ export default class JQueryParser implements IParser {
     public parse(elements: NodeListOf<Element>): IElementListener[] {
         /** jQuery uses a cache for all event data. The elements are not needed */
         const result: IElementListener[] = [];
-        result.push(...this.getJQueryFiveSix(), ...this.getJQueryFourSeven());
+        result.push(...this.getJQueryFiveSix(), ...this.getJQueryFourSeven(), ...this.getJQueryTwo());
 
         return result;
     }
@@ -43,12 +43,36 @@ export default class JQueryParser implements IParser {
         if ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.4')
             && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.5')) ||
             ((Utilities.versionCompare(jQuery.fn.jquery, '>=', '1.7')
-                && Utilities.versionCompare(jQuery.fn.jquery, '<', '2.0')))
+                && Utilities.versionCompare(jQuery.fn.jquery, '<', '1.13')))
         ) {
             return this.handleJQuery((jQuery as any).cache);
         }
 
         return [];
+    }
+
+    /** jQuery 2.2
+     * Each element contains its own cache -- $._data(element)
+     */
+    private getJQueryTwo(): IElementListener[] {
+        if (!this.globalJQueryExists()) {
+            return [];
+        }
+
+        const result: IElementListener[] = [];
+        if (Utilities.versionCompare(jQuery.fn.jquery, '>=', '2.2') &&
+            Utilities.versionCompare(jQuery.fn.jquery, '<', '2.3')) {
+            const self = this;
+            // tslint:disable-next-line:only-arrow-functions
+            $('*').each(function (index) {
+                const eventData = ($ as any)._data(this);
+                if (typeof eventData.events === 'object') {
+                    result.push(...self.getNodeEvents(($ as any)._data(this), this));
+                }
+            });
+        }
+
+        return result;
     }
 
     private globalJQueryExists(): boolean {
@@ -72,7 +96,7 @@ export default class JQueryParser implements IParser {
         }
 
         /** We are probably returning items -- set the name */
-        this.parserName += jQuery.fn.jquery;
+        this.parserName = `jQuery ${jQuery.fn.jquery}`;
 
         let events;
         if (typeof eventsObject.events === 'object') {
