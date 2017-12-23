@@ -28,7 +28,7 @@ export default class JQuery13Parser implements IParser {
         }
 
         /** Set name to include jQuery version */
-        this.parserName += jQuery.fn.jquery;
+        this.parserName = `jQuery ${jQuery.fn.jquery}`;
 
         const foundElements: IElementListener[] = [];
         const cache = (jQuery as any).cache;

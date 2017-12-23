@@ -31,7 +31,7 @@ describe('jQuery 1.4 parser', () => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(parser.name()).to.be.equal('jQuery1.4.41.4.4', 'Incorrect version reported');
+            expect(parser.name()).to.be.equal('jQuery 1.4.4', 'Incorrect version reported');
             done();
         }, 500);
     });

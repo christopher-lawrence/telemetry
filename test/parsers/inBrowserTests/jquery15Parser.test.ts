@@ -31,7 +31,7 @@ describe('jQuery 1.5 parser', () => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(parser.name()).to.be.equal('jQuery1.5.21.5.2', 'Incorrect version reported');
+            expect(parser.name()).to.be.equal('jQuery 1.5.2', 'Incorrect version reported');
             done();
         }, 500);
     });

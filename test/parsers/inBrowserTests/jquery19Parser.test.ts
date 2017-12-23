@@ -31,7 +31,7 @@ describe('jQuery 1.9 parser', () => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(parser.name()).to.equal('jQuery1.9.11.9.1', 'Incorrect version reported');
+            expect(parser.name()).to.equal('jQuery 1.9.1', 'Incorrect version reported');
             done();
         }, 500);
     });
