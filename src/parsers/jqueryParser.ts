@@ -61,7 +61,7 @@ export default class JQueryParser implements IParser {
 
         const result: IElementListener[] = [];
         if (Utilities.versionCompare(jQuery.fn.jquery, '>=', '2.2') &&
-            Utilities.versionCompare(jQuery.fn.jquery, '<', '2.3')) {
+            Utilities.versionCompare(jQuery.fn.jquery, '<', '3.3')) {
             const self = this;
             // tslint:disable-next-line:only-arrow-functions
             $('*').each(function (index) {
