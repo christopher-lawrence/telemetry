@@ -3,14 +3,14 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        jquery13ParserBrowserTest: "./test/parsers/inBrowserTests/jquery13Parser.test.ts",
-        jquery14ParserBrowserTest: "./test/parsers/inBrowserTests/jquery14Parser.test.ts",
-        jquery15ParserBrowserTest: "./test/parsers/inBrowserTests/jquery15Parser.test.ts",
-        jquery16ParserBrowserTest: "./test/parsers/inBrowserTests/jquery16Parser.test.ts",
-        jquery17ParserBrowserTest: "./test/parsers/inBrowserTests/jquery17Parser.test.ts",
-        jquery18ParserBrowserTest: "./test/parsers/inBrowserTests/jquery18Parser.test.ts",
-        jquery19ParserBrowserTest: "./test/parsers/inBrowserTests/jquery19Parser.test.ts",
-        jquery112ParserBrowserTest: "./test/parsers/inBrowserTests/jquery112Parser.test.ts",
+        jquery1_3ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_3Parser.test.ts",
+        jquery1_4ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_4Parser.test.ts",
+        jquery1_5ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_5Parser.test.ts",
+        jquery1_6ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_6Parser.test.ts",
+        jquery1_7ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_7Parser.test.ts",
+        jquery1_8ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_8Parser.test.ts",
+        jquery1_9ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_9Parser.test.ts",
+        jquery1_12ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_12Parser.test.ts",
         jquery2ParserBrowserTest: "./test/parsers/inBrowserTests/jquery2Parser.test.ts",
         jquery3ParserBrowserTest: "./test/parsers/inBrowserTests/jquery3Parser.test.ts"
     },
