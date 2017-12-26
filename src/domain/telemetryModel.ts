@@ -1,5 +1,5 @@
 import { ITelemetryTarget, TelemetryTargetTypes } from './itelemetryTarget';
-import { IElementListener } from '../common/interfaces/ielementListener';
+import { IElementListener } from './ielementListener';
 
 export default class TelemetryModel {
     public readonly page: string;
@@ -58,7 +58,7 @@ export default class TelemetryModel {
         const stringify: string[] = [];
         for (let i = 0; i < attributes.length; i++) {
             const attr = attributes.item(i);
-            stringify.push(`${attr.nodeName}: ${attr.nodeValue}`);
+            stringify.push(`${attr.nodeName}: ${attr.value}`);
         }
         return stringify.join(',');
     }

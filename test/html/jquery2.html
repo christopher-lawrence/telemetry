@@ -1,46 +1,74 @@
-<html>
+<!DOCTYPE>
 
 <head>
     <script type="text/javascript" src="http://localhost:8080/telemetry.js"></script>
     <link href="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css" rel="stylesheet" />
-
+    <link href="../css/main.css" rel="stylesheet" />
 </head>
 
 <body>
 
-    <div id="heading">
-        <h2>Testing this out.</h2>
+    <div id="heading" class="test-container">
+        <h3>Click Test</h3>
+        <img id="click-test-image" class="none-border" src="../assets/Cat03.jpg" />
+        <div class="counter">
+            <p>Click count: </p>
+            <div id="click-count" class="counter-value">0</div>
+        </div>
     </div>
-    <div id="image">
-        <img src="../assets/Cat03.jpg" style="height: 50%;" />
+
+    <div id="dblclick-test" class="test-container">
+        <h3>Double Click Test</h3>
+        <img id="dblclick-test-image" class="none-border" src="../assets/Cat04.jpg" />
+        <div class="counter">
+            <p>Dblclick count: </p>
+            <div id="dblclick-count" class="counter-value">0</div>
+        </div>
     </div>
-    <div>
-        <div id="img-click-count">0</div>
-    </div>
-    <div id="link">
-        <p>Link</p>
-    </div>
-    <div>
-        <div id="link-click-count">0</div>
+
+    <div class="test-container">
+        <h3>Submit & Change Test:</h3>
+        <form id="form-test">
+            <div>
+                <input id="yes" class="change-test" type="radio" name="radiobutton" value="yes">
+                <label for="yes">Yes</label>
+
+                <input id="no" class="change-test" type="radio" name="radiobutton" value="no">
+                <label for="no">No</label>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+        <div id="form-log-container">
+            <pre>Submit Log: </pre>
+            <pre id="form-log"></pre>
+        </div>
+        <div>
+            <pre>Change Log: </pre>
+            <pre id="change-log"></pre>
+        </div>
     </div>
 
     <script type="text/javascript" src="../js/jquery15_16.js"></script>
 
     <!-- Mocha test -->
-    <div id="mocha"></div>
+    <div id="mocha" class="test-container mocha-test-container">
+        <h3>Mocha Test Results</h3>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.js"></script>
-    <script type="text/javascript" src="../../node_modules/chai/chai.js"></script>
-    <script src="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.js"></script>
+        <script type="text/javascript" src="../../node_modules/chai/chai.js"></script>
+        <script src="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js"></script>
 
-    <script>mocha.setup('bdd')</script>
-    <script src="http://localhost:8080/jquery2ParserBrowserTest.js"></script>
-    <!-- <script src="../dist/jquery19ParserBrowserTest.js"></script> -->
-    <script>
-        mocha.checkLeaks();
-        mocha.globals(['jQuery']);
-        mocha.run();
-    </script>
+        <script>mocha.setup('bdd')</script>
+        <script src="http://localhost:8081/jquery2ParserBrowserTest.js"></script>
+        <!-- <script src="../dist/jquery19ParserBrowserTest.js"></script> -->
+        <script>
+            mocha.checkLeaks();
+            mocha.globals(['jQuery']);
+            mocha.run();
+        </script>
+    </div>
 </body>
 
 </html>

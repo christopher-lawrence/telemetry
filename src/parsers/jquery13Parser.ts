@@ -1,7 +1,7 @@
 import { IParser } from './interfaces/iParser';
-import { IElementListener } from '../common/interfaces/ielementListener';
+import { IElementListener } from '../domain/ielementListener';
 import Utilities from '../common/utilities';
-import { IListener } from '../common/interfaces/ilistener';
+import { IListener } from '../domain/ilistener';
 
 /** NOTE: jQuery <= 1.3
  * - These versions of jQuery auto add an unload and load (in that order) event
@@ -48,7 +48,6 @@ export default class JQuery13Parser implements IParser {
                     const func = oEvent[iFunctionIndex].toString();
                     listeners.push({
                         func: func,
-                        removed: false,
                         source: this.parserName,
                         type: type,
                     });
@@ -80,7 +79,6 @@ export default class JQuery13Parser implements IParser {
             $(selector).each(() => {
                 listeners.push({
                     func: 'Unable to obtain function for live() bound event',
-                    removed: false,
                     source: `${this.parserName} (live)`,
                     type: event,
                 });

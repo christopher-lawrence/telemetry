@@ -23,7 +23,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'test', 'dist'),
-        port: 8080
+        port: 8081
     },
     resolve: {
         extensions: ['*', '.webpack.js', '.web.js', '.ts', '.js']

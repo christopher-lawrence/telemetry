@@ -1,7 +1,7 @@
 import { IParser } from './interfaces/iparser';
-import { IElementListener } from '../common/interfaces/ielementListener';
+import { IElementListener } from '../domain/ielementListener';
 import EventTypes from '../common/eventTypes';
-import { IListener } from '../common/interfaces/ilistener';
+import { IListener } from '../domain/ilistener';
 
 export default class DomParser implements IParser {
     private parserName: string = 'DOM';
@@ -25,7 +25,6 @@ export default class DomParser implements IParser {
                 if (typeof (currentElement as any)[`on${types[j]}`] === 'function') {
                     listeners.push({
                         func: (currentElement as any)[`on${types[j]}`].toString(),
-                        removed: false,
                         source: this.parserName,
                         type: types[j],
                     });

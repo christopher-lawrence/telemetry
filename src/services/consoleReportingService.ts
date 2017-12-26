@@ -2,13 +2,13 @@ import { IReportingService } from './interfaces/ireportingService';
 import TelemetryModel from '../domain/telemetryModel';
 import { ILogger } from './interfaces/iLogger';
 import LogService from './logService';
-import { IElementListener } from '../common/interfaces/ielementListener';
+import { IElementListener } from '../domain/ielementListener';
 
 export default class ConsoleReportingService implements IReportingService {
     private logger: ILogger;
 
     public report(event: Event, telemetryElement: IElementListener): void {
-        this.logger.info(event);
+        // this.logger.info(event);
 
         const telemetryModel = new TelemetryModel(event, telemetryElement);
 

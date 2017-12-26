@@ -1,0 +1,41 @@
+body {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap:wrap;
+}
+img {
+  width: 50%;
+}
+.test-container {
+  height: 500px;
+  width: 500px;
+  border: solid 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 25px;
+  overflow: auto;
+}
+.counter {
+  display: flex;
+  align-items: center;
+}
+.counter-value {
+  margin-left: 5px;
+}
+.mocha-test-container {
+  width: 1000px;
+}
+
+.none-border {
+    border: none;
+}
+
+.blue-border {
+    border: blue solid;
+}
+
+#mocha-report {
+  width: 100%;
+}

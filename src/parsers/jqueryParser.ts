@@ -1,8 +1,8 @@
 import { IParser } from './interfaces/iParser';
-import { IElementListener } from '../common/interfaces/ielementListener';
-import { listenerCount } from 'cluster';
-import { IListener } from '../common/interfaces/ilistener';
+import { IElementListener } from '../domain/ielementListener';
+import { IListener } from '../domain/ilistener';
 import Utilities from '../common/utilities';
+import JQuery13Parser from './jquery13Parser';
 
 /** Most of the types on jQuery seem to just be objects which is why there is so much 'any' in here */
 
@@ -15,7 +15,11 @@ export default class JQueryParser implements IParser {
 
     public parse(elements: NodeListOf<Element>): IElementListener[] {
         /** jQuery uses a cache for all event data. The elements are not needed */
-        const result: IElementListener[] = [];
+        const jquery13: JQuery13Parser = new JQuery13Parser();
+        const result: IElementListener[] = jquery13.parse(elements);
+        if (result.length > 0) {
+            this.parserName = jquery13.name();
+        }
         result.push(...this.getJQueryFiveSix(), ...this.getJQueryFourSeven(), ...this.getJQueryTwo());
 
         return result;
@@ -109,7 +113,11 @@ export default class JQueryParser implements IParser {
 
         let func;
 
-        const foundElements: any[] = [];
+        /** One element can have many listeners
+         * -- types are grouped
+         * -- one element per type
+         */
+        const foundElements: IElementListener[] = [];
         for (const type in events) {
             if (events.hasOwnProperty(type)) {
                 if (type === 'live') {
@@ -118,43 +126,45 @@ export default class JQueryParser implements IParser {
 
                 const oEvents = events[type];
 
+                const listeners: IListener[] = [];
+                let aNode: any;
                 for (const j in oEvents) {
                     /** #10 - jQuery 1.7
                      * - Problem: Reporting an extra event per element
                      * - Resolution: validate the event property is an object
                      */
                     if (oEvents.hasOwnProperty(j) && typeof oEvents[j] === 'object') {
-                        const aNodes = [];
                         let sjQuery = this.parserName;
 
                         if (typeof oEvents[j].selector !== 'undefined' && oEvents[j].selector !== null) {
-                            aNodes.push($(oEvents[j].selector, node));
+                            aNode = $(oEvents[j].selector, node);
                             sjQuery += ' (live event)';
                         } else {
-                            aNodes.push(node);
+                            aNode = node;
                         }
 
-                        const listeners: any[] = [];
-                        for (let k = 0, kLen = aNodes.length; k < kLen; k++) {
-                            if (typeof oEvents[j].origHandler !== 'undefined') {
-                                func = oEvents[j].origHandler.toString();
-                            } else if (typeof oEvents[j].handler !== 'undefined') {
-                                func = oEvents[j].handler.toString();
-                            } else {
-                                func = oEvents[j].toString();
-                            }
-                            foundElements.push({
-                                listeners: [{
-                                    func: func,
-                                    removed: false,
-                                    source: sjQuery,
-                                    type: type,
-                                }],
-                                node: aNodes[k],
-                            });
-
+                        // for (let k = 0, kLen = aNodes.length; k < kLen; k++) {
+                        if (typeof oEvents[j].origHandler !== 'undefined') {
+                            func = oEvents[j].origHandler.toString();
+                        } else if (typeof oEvents[j].handler !== 'undefined') {
+                            func = oEvents[j].handler.toString();
+                        } else {
+                            func = oEvents[j].toString();
                         }
+                        listeners.push({
+                            func: func,
+                            source: sjQuery,
+                            type: type,
+                        });
+
+                        // }
                     }
+                }
+                if (listeners.length > 0) {
+                    foundElements.push({
+                        listeners: listeners,
+                        node: aNode,
+                    });
                 }
             }
         }

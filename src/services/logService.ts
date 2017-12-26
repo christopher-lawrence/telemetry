@@ -1,5 +1,5 @@
 import { ILogger } from './interfaces/iLogger';
-import { IListener } from '../common/interfaces/ilistener';
+import { IListener } from '../domain/ilistener';
 import ConsoleLogger from '../domain/framework/consoleLogger';
 
 export default class LogService {

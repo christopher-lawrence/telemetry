@@ -1,7 +1,7 @@
 import { IParserService } from './interfaces/iParserService';
 import { IParser } from '../parsers/interfaces/iParser';
 import DomParser from '../parsers/domParser';
-import { IElementListener } from '../common/interfaces/iElementListener';
+import { IElementListener } from '../domain/iElementListener';
 import { IListenerService } from './interfaces/iListenerService';
 import ListenerService from './listenerService';
 import { ILogger } from './interfaces/iLogger';
@@ -15,7 +15,7 @@ export default class ParserService implements IParserService {
     private allElements: NodeListOf<Element>;
 
     constructor(allElements: NodeListOf<Element>) {
-        this.parsers = [new DomParser(), new JQueryParser(), new JQuery13Parser()];
+        this.parsers = [new DomParser(), new JQueryParser()];
         this.logger = LogService.getInstance();
         this.allElements = allElements;
     }
@@ -43,7 +43,6 @@ export default class ParserService implements IParserService {
         elementListener.listeners.forEach((l) => {
             this.logger.debug(`window.location: ${window.location}`);
             this.logger.debug(`func: ${l.func}`);
-            this.logger.debug(`removed: ${l.removed}`);
             this.logger.debug(`source: ${l.source}`);
             this.logger.debug(`type: ${l.type}`);
         });
