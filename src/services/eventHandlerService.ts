@@ -5,16 +5,16 @@ import { IListenerService } from './interfaces/iListenerService';
 import ListenerService from './listenerService';
 import { setTimeout } from 'timers';
 import LogService from './logService';
+import { IParser } from '../parsers/interfaces/iParser';
 
 export default class EventHandlerService implements IEventHandlerService {
     private parserService: IParserService;
-    private addListenerService: IListenerService;
+    private listenerService: IListenerService;
     private logger: LogService;
 
-    constructor() {
-        const allElements = document.getElementsByTagName('*');
-        this.parserService = new ParserService(allElements);
-        this.addListenerService = new ListenerService();
+    constructor(parserService: IParserService, listenerService: IListenerService) {
+        this.parserService = parserService;
+        this.listenerService = listenerService;
         this.logger = LogService.getInstance();
     }
 
@@ -40,6 +40,6 @@ export default class EventHandlerService implements IEventHandlerService {
         this.logger.debug('[startParsers]: Starting parsers...');
         /** DOM is loaded -- start parsers */
         const parsed = this.parserService.executeParsers();
-        parsed.map((p) => this.addListenerService.AddListeners(p));
+        parsed.map((p) => this.listenerService.AddListeners(p));
     }
 }

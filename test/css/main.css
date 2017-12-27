@@ -26,6 +26,7 @@ img {
 }
 .mocha-test-container {
   width: 1000px;
+  height: auto;
 }
 
 .none-border {

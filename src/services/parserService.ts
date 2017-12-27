@@ -12,22 +12,26 @@ import JQuery13Parser from '../parsers/jquery13Parser';
 export default class ParserService implements IParserService {
     private parsers: IParser[];
     private logger: ILogger;
-    private allElements: NodeListOf<Element>;
 
-    constructor(allElements: NodeListOf<Element>) {
+    constructor() {
         this.parsers = [new DomParser(), new JQueryParser()];
         this.logger = LogService.getInstance();
-        this.allElements = allElements;
     }
 
-    public executeParsers(): IElementListener[] {
+    public executeParsers(elements?: NodeListOf<Element>): IElementListener[] {
+        let allElements;
+        if (elements) {
+            allElements = elements;
+        } else {
+            allElements = document.getElementsByTagName('*');
+        }
         const parsed: IElementListener[] = [];
         let parser: IParser;
         let result: IElementListener[];
         let eventCount: number;
         for (let i = 0, iLen = this.parsers.length; i < iLen; i++) {
             parser = this.parsers[i];
-            result = parser.parse(this.allElements);
+            result = parser.parse(allElements);
             parsed.push(...result);
             eventCount = result.map((r) => r.listeners.length).reduce((a, b) => a + b, 0);
             this.logger.debug(

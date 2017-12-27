@@ -35,12 +35,4 @@ describe('jQuery 1.12 parser', () => {
             done();
         }, 500);
     });
-
-    it.skip('reports the correct telemetry type', (done) => {
-        setTimeout(() => {
-            const parser = new JQueryParser();
-            const result = parser.parse(allElements);
-            // const t = result.filter(r => r.)
-        }, 500);
-    });
 });

@@ -12,7 +12,8 @@ module.exports = {
         jquery1_9ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_9Parser.test.ts",
         jquery1_12ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_12Parser.test.ts",
         jquery2ParserBrowserTest: "./test/parsers/inBrowserTests/jquery2Parser.test.ts",
-        jquery3ParserBrowserTest: "./test/parsers/inBrowserTests/jquery3Parser.test.ts"
+        jquery3ParserBrowserTest: "./test/parsers/inBrowserTests/jquery3Parser.test.ts",
+        listenerServiceBrowserTest: "./test/parsers/inBrowserTests/listenerService.test.ts"
     },
     output: {
         path: path.join(__dirname, 'test', 'dist'),
