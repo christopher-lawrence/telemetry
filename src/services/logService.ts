@@ -2,7 +2,7 @@ import { ILogger } from './interfaces/iLogger';
 import { IListener } from '../domain/ilistener';
 import ConsoleLogger from '../domain/framework/consoleLogger';
 
-export default class LogService {
+export default class LogService implements ILogger {
     private static instance: LogService;
     private logger: ILogger;
 

@@ -20,8 +20,17 @@ module.exports = {
         extensions: ['*', '.webpack.js', '.web.js', '.ts', '.js']
     },
     module: {
-        loaders: [
-            { test: /\.ts$/, loader: "ts-loader" }
+        rules: [
+            {
+                test: /\.ts$/,
+                loader: "ts-loader",
+                include: [
+                    path.resolve(__dirname, 'src')
+                ],
+                exclude: [
+                    path.resolve(__dirname, 'test')
+                ]
+            }
         ]
     },
     plugins: [

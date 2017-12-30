@@ -6,16 +6,21 @@ import ListenerService from './listenerService';
 import { setTimeout } from 'timers';
 import LogService from './logService';
 import { IParser } from '../parsers/interfaces/iParser';
+import { CookieManager } from '../domain/cookieManager/cookieManager';
+import { ICommandService } from './interfaces/iCommandService';
+import { CommandService } from './commandService';
 
 export default class EventHandlerService implements IEventHandlerService {
     private parserService: IParserService;
     private listenerService: IListenerService;
     private logger: LogService;
+    private commandService: ICommandService;
 
     constructor(parserService: IParserService, listenerService: IListenerService) {
         this.parserService = parserService;
         this.listenerService = listenerService;
         this.logger = LogService.getInstance();
+        this.commandService = new CommandService();
     }
 
     public handleDomContentLoadedEvent(event: Event): void {
@@ -23,6 +28,8 @@ export default class EventHandlerService implements IEventHandlerService {
         this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent creation time: ${event.timeStamp}`);
 
         this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent setTimeout begin ${Date.now()}`);
+
+        this.commandService.executeCommand('create', 'TA_00000');
         setTimeout(() => this.startParsers(), 1000);
     }
 
