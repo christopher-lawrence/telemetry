@@ -7,7 +7,7 @@ import LogService from '../../services/logService';
 const cookie = (cookiejs as any).cookie;
 
 export class CookieManager implements ICookieManager {
-    private defaultExpirationMinutes = 1;
+    private defaultExpirationMinutes = 30;
     private logService: ILogger;
 
     constructor(logService?: ILogger) {

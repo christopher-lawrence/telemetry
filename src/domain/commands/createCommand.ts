@@ -5,15 +5,18 @@ import { CookieManager } from '../cookieManager/cookieManager';
 import { ICookieManager } from '../cookieManager/ICookieManager';
 import LogService from '../../services/logService';
 import { ICommander } from '../framework/interfaces/ICommander';
+import { IAction } from '../actions/IAction';
 
 export default class CreateCommand implements ICommand {
-    private commander: ICommander;
+    private createAction: IAction;
+
+    public readonly name: string = 'create';
 
     public execute(): void {
-        this.commander.create();
+        this.createAction.action();
     }
 
-    public constructor(commander: ICommander) {
-        this.commander = commander;
+    public constructor(createAction: IAction) {
+        this.createAction = createAction;
     }
 }
