@@ -1,7 +1,3 @@
-import EventNames from '../common/eventNames';
-import EventHandler from '../services/eventHandlerService';
-import { IEventHandlerService } from '../services/interfaces/ieventHandlerService';
-import EventHandlerService from '../services/eventHandlerService';
 import { IElementListener } from '../domain/ielementListener';
 import { IListenerService } from './interfaces/iListenerService';
 import { IReportingService } from './interfaces/ireportingService';

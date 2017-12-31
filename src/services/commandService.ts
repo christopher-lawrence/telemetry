@@ -1,8 +1,5 @@
 import { ICommandService } from './interfaces/iCommandService';
-import { ICommand } from '../domain/commands/interfaces/ICommand';
 import CreateCommand from '../domain/commands/createCommand';
-import { ICommander } from '../domain/framework/interfaces/ICommander';
-import { Commander } from '../domain/framework/commander';
 import { CommandAgent } from '../domain/framework/commandAgent';
 import { ILogger } from './interfaces/iLogger';
 import LogService from './logService';
@@ -10,7 +7,6 @@ import { CreateAction } from '../domain/actions/createAction';
 
 export class CommandService implements ICommandService {
     private static instance: CommandService;
-    private commander: ICommander;
     private commandAgent: CommandAgent;
     private logger: ILogger;
 

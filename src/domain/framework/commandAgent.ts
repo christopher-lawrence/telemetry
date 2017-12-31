@@ -1,4 +1,4 @@
-import { ICommand } from '../commands/interfaces/ICommand';
+import { ICommand } from '../commands/ICommand';
 import { ILogger } from '../../services/interfaces/iLogger';
 import LogService from '../../services/logService';
 
