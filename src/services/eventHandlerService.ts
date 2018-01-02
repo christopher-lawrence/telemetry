@@ -19,8 +19,10 @@ export default class EventHandlerService implements IEventHandlerService {
 
         this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent setTimeout begin ${Date.now()}`);
 
-        this.commandService.initializeCommands('TA_00000', true);
-        this.commandService.executeCommand('create');
+        /** TODO: Command service
+         * - Remove this eventually
+         */
+        this.commandService.executeCommand('create', 'TA_00000', true);
     }
 
     public handleLoadEvent(event: Event): void {

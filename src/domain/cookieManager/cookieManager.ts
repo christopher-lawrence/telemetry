@@ -18,31 +18,47 @@ export class CookieManager implements ICookieManager {
     }
 
     /**
-     * Get traversal cookie -- creates new one if one does not exist
+     * Get traversal cookie
      */
-    public getTraversalCookie(clientId: string): ITraversal {
-        let traversal: ITraversal = {
-            clientId: '',
-            id: '',
-        };
+    public getTraversalCookie(clientId: string): ITraversal | undefined {
         const cookies = cookie.all();
-        if (!cookies || !cookies[clientId]) {
+        if (cookies && cookies[clientId]) {
+            const cook = cookies[clientId];
+            const traversal = JSON.parse(atob(cook));
+            this.logService.debug(`[getTraversalCookie] - Using previous traversal ${traversal.id}`);
+            return traversal;
+        }
+        return undefined;
+    }
+
+    /**
+     * Get or create a new traversal cookie
+     * @param clientId client id to query for
+     */
+    public netTraversalCookie(clientId: string): ITraversal {
+        let traversal = this.getTraversalCookie(clientId);
+
+        if (!traversal) {
             const tId = TraversalUtitlies.newTraversalId();
             traversal = {
                 clientId: clientId,
                 id: tId,
             };
-            this.logService.debug(`[getTraversalCookie] - Starting new traversal ${traversal.id}`);
             this.setTraversalCookie(clientId, traversal);
-        } else {
-            const cook = cookies[clientId];
-            traversal = JSON.parse(atob(cook));
-            this.logService.debug(`[getTraversalCookie] - Using previous traversal ${traversal.id}`);
         }
         return traversal;
     }
 
     public setTraversalCookie(clientId: string, traversal: ITraversal) {
+        const previousCookie = this.getTraversalCookie(clientId);
+        if (previousCookie) {
+            return previousCookie;
+        }
+        this.logService.debug(`[setTraversalCookie] - Starting new traversal ${traversal.id}`);
         return cookie.set(clientId, btoa(JSON.stringify(traversal)));
+    }
+
+    public removeTraversalCookie(clientId: string): void {
+        cookie.remove(clientId);
     }
 }

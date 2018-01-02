@@ -20,8 +20,13 @@ export class CreateAction implements IAction {
         this.logger = logger || LogService.getInstance();
         this.captureAllEvents = captureAllEvents;
     }
+
     public action(): void {
-        const traversal: ITraversal = this.cookieManager.getTraversalCookie(this.clientId);
+        const traversal = this.cookieManager.netTraversalCookie(this.clientId);
+        if (!traversal) {
+            this.logger.error(`Unable to find clientId ${this.clientId}`);
+            return;
+        }
         if (this.captureAllEvents) {
             setTimeout(() => this.startParsers(), 1000);
         }
