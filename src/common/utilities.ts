@@ -1,4 +1,23 @@
 export default class Utilities {
+    public static alphaNumericString: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    public static randomAlphaNumericString(length: number): string {
+        let value = '';
+        for (let i = 0; i < length; i++) {
+            value = value + Utilities.randomAlphaNumericChar();
+        }
+        return value;
+    }
+    public static randomAlphaNumericChar(): string {
+        const randomNumber = Utilities.randomNumber(0, Utilities.alphaNumericString.length - 1);
+        const char = Utilities.alphaNumericString[Utilities.randomNumber(0, randomNumber)];
+        return char;
+    }
+
+    public static randomNumber(min: number, max: number): number {
+        return Math.round(Math.random() * (max - min) + min);
+    }
+
     public static globalJQueryExists(): boolean {
         return typeof (jQuery) !== 'undefined';
     }

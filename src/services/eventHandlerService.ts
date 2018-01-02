@@ -1,21 +1,16 @@
 import { IEventHandlerService } from './interfaces/IEventHandlerService';
-import { IParserService } from './interfaces/iparserService';
-import ParserService from './parserService';
-import { IListenerService } from './interfaces/iListenerService';
-import ListenerService from './listenerService';
-import { setTimeout } from 'timers';
 import LogService from './logService';
-import { IParser } from '../parsers/interfaces/iParser';
+import { ICommandService } from './interfaces/iCommandService';
+import { CommandService } from './commandService';
+import { ILogger } from './interfaces/iLogger';
 
 export default class EventHandlerService implements IEventHandlerService {
-    private parserService: IParserService;
-    private listenerService: IListenerService;
-    private logger: LogService;
+    private logger: ILogger;
+    private commandService: ICommandService;
 
-    constructor(parserService: IParserService, listenerService: IListenerService) {
-        this.parserService = parserService;
-        this.listenerService = listenerService;
-        this.logger = LogService.getInstance();
+    constructor(logger?: ILogger, commandService?: ICommandService) {
+        this.logger = logger || LogService.getInstance();
+        this.commandService = commandService || CommandService.getInstance();
     }
 
     public handleDomContentLoadedEvent(event: Event): void {
@@ -23,7 +18,11 @@ export default class EventHandlerService implements IEventHandlerService {
         this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent creation time: ${event.timeStamp}`);
 
         this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent setTimeout begin ${Date.now()}`);
-        setTimeout(() => this.startParsers(), 1000);
+
+        /** TODO: Command service
+         * - Remove this eventually
+         */
+        this.commandService.executeCommand('create', 'TA_00000', true);
     }
 
     public handleLoadEvent(event: Event): void {
@@ -33,13 +32,5 @@ export default class EventHandlerService implements IEventHandlerService {
         const domContentLoadedEventEnd = window.performance.timing.domContentLoadedEventEnd;
         // tslint:disable-next-line:max-line-length
         this.logger.debug(`[handleLoadEvent][Window]:DOM content load time (calculated): ${(domContentLoadedEventEnd - domContentLoadedEventStart)}`);
-    }
-
-    private startParsers() {
-        this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent setTimeout end ${Date.now()}`);
-        this.logger.debug('[startParsers]: Starting parsers...');
-        /** DOM is loaded -- start parsers */
-        const parsed = this.parserService.executeParsers();
-        parsed.map((p) => this.listenerService.AddListeners(p));
     }
 }

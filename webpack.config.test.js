@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
+        /** Parsers */
         jquery1_3ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_3Parser.test.ts",
         jquery1_4ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_4Parser.test.ts",
         jquery1_5ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_5Parser.test.ts",
@@ -13,7 +14,10 @@ module.exports = {
         jquery1_12ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_12Parser.test.ts",
         jquery2ParserBrowserTest: "./test/parsers/inBrowserTests/jquery2Parser.test.ts",
         jquery3ParserBrowserTest: "./test/parsers/inBrowserTests/jquery3Parser.test.ts",
-        listenerServiceBrowserTest: "./test/parsers/inBrowserTests/listenerService.test.ts"
+        listenerServiceBrowserTest: "./test/parsers/inBrowserTests/listenerService.test.ts",
+
+        /** Commands */
+        createCommandBrowserTest: "./test/commands/inBrowserTests/create.test.ts"
     },
     output: {
         path: path.join(__dirname, 'test', 'dist'),
