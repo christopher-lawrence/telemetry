@@ -17,10 +17,10 @@ export class CommandAgent {
         this.commands.push(command);
     }
 
-    public executeCommand(commandName: string): void {
+    public executeCommand(commandName: string, ...parameters: string[]): void {
         const command = this.commands.filter((c) => c.name === commandName);
         if (command) {
-            command[0].execute();
+            command[0].execute(...parameters);
         } else {
             this.logger.error(`[CommandAgent:executeCommand] - Failed to find command ${commandName}`);
         }

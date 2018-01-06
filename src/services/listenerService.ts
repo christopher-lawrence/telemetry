@@ -34,6 +34,6 @@ export default class ListenerService implements IListenerService {
 
     private defaultEventHandler(event: Event, element: IElementListener): void {
         this.logger.debug('[EventHandlerService]:[handleInitialEvent]');
-        this.reportingService.report(event, element);
+        this.reportingService.reportEvent(event, element);
     }
 }

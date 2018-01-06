@@ -20,15 +20,23 @@ export class CookieManager implements ICookieManager {
     /**
      * Get traversal cookie
      */
-    public getTraversalCookie(clientId: string): ITraversal | undefined {
+    public getTraversalCookie(clientId?: string): ITraversal | undefined {
         const cookies = cookie.all();
-        if (cookies && cookies[clientId]) {
-            const cook = cookies[clientId];
-            const traversal = JSON.parse(atob(cook));
-            this.logService.debug(`[getTraversalCookie] - Using previous traversal ${traversal.id}`);
-            return traversal;
+        const id = clientId || '';
+        let cookE;
+        let traversal;
+        if (cookies) {
+            if (cookies[id]) {
+                cookE = cookies[id];
+            } else {
+                cookE = this.findTraversalCookie(cookies);
+            }
+            if (cookE) {
+                traversal = this.parseCookie(cookE);
+                this.logService.debug(`[getTraversalCookie] - Using previous traversal ${traversal.id}`);
+            }
         }
-        return undefined;
+        return traversal;
     }
 
     /**
@@ -60,5 +68,20 @@ export class CookieManager implements ICookieManager {
 
     public removeTraversalCookie(clientId: string): void {
         cookie.remove(clientId);
+    }
+
+    private parseCookie(cookE: any) {
+        return JSON.parse(atob(cookE));
+    }
+
+    private findTraversalCookie(cookies: any): string {
+        const props = Object.getOwnPropertyNames(cookies);
+        let found;
+        for (const prop in props) {
+            if (prop.startsWith('TA_')) {
+                found = cookies[prop];
+            }
+        }
+        return found;
     }
 }

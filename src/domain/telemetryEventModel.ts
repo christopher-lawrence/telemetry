@@ -1,7 +1,7 @@
 import { ITelemetryTarget, TelemetryTargetTypes } from './itelemetryTarget';
 import { IElementListener } from './ielementListener';
 
-export default class TelemetryModel {
+export default class TelemetryEventModel {
     public readonly page: string;
     public readonly target: ITelemetryTarget;
     public readonly type: string;

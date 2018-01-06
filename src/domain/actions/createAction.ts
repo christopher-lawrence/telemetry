@@ -33,9 +33,8 @@ export class CreateAction implements IAction {
     }
 
     private startParsers() {
-        this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent setTimeout end ${Date.now()}`);
+        this.logger.debug(`[createAction][startParsers]:setTimeout end ${Date.now()}`);
         this.logger.debug('[startParsers]: Starting parsers...');
-        /** DOM is loaded -- start parsers */
         const parserService = new ParserService();
         const listenerService = new ListenerService();
         const parsed = parserService.executeParsers();

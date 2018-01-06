@@ -1,5 +1,6 @@
 import { IElementListener } from '../../domain/ielementListener';
 
 export interface IReportingService {
-    report: (event: Event, telemetryElement: IElementListener) => void;
+    reportEvent: (event: Event, telemetryElement: IElementListener) => void;
+    report(): void;
 }
