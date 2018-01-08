@@ -1,20 +1,20 @@
 import { expect } from 'chai';
 import JQueryParser from '../../../src/parsers/jqueryParser';
 import { setTimeout } from 'timers';
-import ListenerService from '../../../src/services/listenerService';
 import * as sinon from 'sinon';
+import EventHandlerService from '../../../src/services/eventHandlerService';
 
-describe('Listener service', () => {
+describe('EventHandler service', () => {
     let allElements: NodeListOf<Element>;
     const parser = new JQueryParser();
-    const listenerService = new ListenerService();
+    const eventHandlerService = EventHandlerService.getInstance();
     const handlerStub = sinon.stub();
 
     before((done) => {
         setTimeout(() => {
             allElements = document.getElementsByTagName('*');
             const result = parser.parse(allElements);
-            result.forEach((r) => listenerService.AddListeners(r, handlerStub));
+            result.forEach((r) => eventHandlerService.addTelemetryListener(r, handlerStub));
             done();
         }, 500);
     });

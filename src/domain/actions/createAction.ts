@@ -6,7 +6,7 @@ import { ILogger } from '../../services/interfaces/iLogger';
 import LogService from '../../services/logService';
 import ParserService from '../../services/parserService';
 import { IParserService } from '../../services/interfaces/iparserService';
-import ListenerService from '../../services/listenerService';
+import EventHandlerService from '../../services/eventHandlerService';
 
 export class CreateAction implements IAction {
     private cookieManager: ICookieManager;
@@ -36,8 +36,8 @@ export class CreateAction implements IAction {
         this.logger.debug(`[createAction][startParsers]:setTimeout end ${Date.now()}`);
         this.logger.debug('[startParsers]: Starting parsers...');
         const parserService = new ParserService();
-        const listenerService = new ListenerService();
+        const eventHanlderService = EventHandlerService.getInstance();
         const parsed = parserService.executeParsers();
-        parsed.map((p) => listenerService.AddListeners(p));
+        parsed.map((p) => eventHanlderService.addTelemetryListener(p));
     }
 }
