@@ -9,12 +9,12 @@ import { IElementListener } from '../domain/ielementListener';
 import { IListener } from '../domain/ilistener';
 import { IReportingService } from './interfaces/ireportingService';
 import ConsoleReportingService from './consoleReportingService';
+import TelemetryEventModel from '../domain/telemetryEventModel';
 
 export default class EventHandlerService implements IEventHandlerService {
     private static instance: EventHandlerService;
     private eventEmitter: EventEmitter;
     private logger: ILogger;
-    private commandService: ICommandService;
     private reportingService: IReportingService;
 
     public static getInstance(): EventHandlerService {
@@ -53,10 +53,9 @@ export default class EventHandlerService implements IEventHandlerService {
 
         this.logger.debug(`[handleDomContentLoadedEvent][Window]:DomContentLoadedEvent setTimeout begin ${Date.now()}`);
 
-        /** TODO: Command service
-         * - Remove this eventually
-         */
-        this.commandService.executeCommand('create', 'TA_00000', true);
+        /** Let the command agent know we are loaded */
+        this.emit('contentloaded');
+
     }
 
     public handleLoadEvent(event: Event): void {
@@ -90,15 +89,21 @@ export default class EventHandlerService implements IEventHandlerService {
     }
 
     private defaultEventHandler(event: Event, element: IElementListener): void {
-        this.logger.debug('[EventHandlerService]:[handleInitialEvent]');
-        this.reportingService.reportEvent(event, element);
+        this.logger.debug('[EventHandlerService]:[defaultEventHandler]');
+        const telemetryEvent = new TelemetryEventModel(event, element);
+        this.reportingService.reportEvent(telemetryEvent);
     }
 
     private constructor(logger?: ILogger, commandService?: ICommandService,
         eventEmitter?: EventEmitter, reportingService?: IReportingService) {
         this.logger = logger || LogService.getInstance();
-        this.commandService = commandService || CommandService.getInstance();
         this.eventEmitter = eventEmitter || new EventEmitter();
         this.reportingService = reportingService || new ConsoleReportingService();
+
+        this.setup();
+    }
+
+    private setup(): void {
+        this.addListener('telemetry', (...args) => this.handleTelemetryEvent(args[0]));
     }
 }

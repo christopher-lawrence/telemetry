@@ -5,6 +5,8 @@ import { IReportingService } from '../../services/interfaces/ireportingService';
 import ConsoleReportingService from '../../services/consoleReportingService';
 import { CookieManager } from '../cookieManager/cookieManager';
 import LogService from '../../services/logService';
+import { TelemetryModel } from '../telemetryModel';
+import TelemetryEventModel from '../telemetryEventModel';
 
 export class SendAction implements IAction {
     private reportingService: IReportingService;
@@ -17,9 +19,8 @@ export class SendAction implements IAction {
         this.cookieManager = cookieManager || new CookieManager(this.logger);
     }
 
-    public action(...parameters: string[]): void {
-        const cookie = this.cookieManager.getTraversalCookie();
-        this.reportingService.report();
-        throw new Error('Not implemented');
+    public action(parameters: any): void {
+        const telemetryModel = new TelemetryModel(parameters);
+        this.reportingService.report(telemetryModel);
     }
 }

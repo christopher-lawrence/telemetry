@@ -78,8 +78,8 @@ export class CookieManager implements ICookieManager {
         const props = Object.getOwnPropertyNames(cookies);
         let found;
         for (const prop in props) {
-            if (prop.startsWith('TA_')) {
-                found = cookies[prop];
+            if (props[prop].startsWith('TA_')) {
+                found = cookies[props[prop]];
             }
         }
         return found;

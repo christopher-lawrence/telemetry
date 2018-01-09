@@ -4,13 +4,13 @@ import { IAction } from '../actions/IAction';
 export class SendCommand implements ICommand {
     private sendAction: IAction;
 
-    public readonly name: string;
+    public readonly name: string = 'send';
 
     public constructor(sendAction: IAction) {
         this.sendAction = sendAction;
     }
 
     public execute(...parameters: string[]): void {
-        this.sendAction.action();
+        this.sendAction.action(...parameters);
     }
 }
