@@ -17,7 +17,8 @@ module.exports = {
         eventHandlerServiceBrowserTest: "./test/parsers/inBrowserTests/eventHandlerService.test.ts",
 
         /** Commands */
-        createCommandBrowserTest: "./test/commands/inBrowserTests/create.test.ts"
+        createCommandBrowserTest: "./test/commands/inBrowserTests/create.test.ts",
+        sendCommandBrowserTest: "./test/commands/inBrowserTests/send.test.ts"
     },
     output: {
         path: path.join(__dirname, 'test', 'dist'),

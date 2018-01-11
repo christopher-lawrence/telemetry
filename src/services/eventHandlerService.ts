@@ -11,6 +11,8 @@ import { IReportingService } from './interfaces/ireportingService';
 import ConsoleReportingService from './consoleReportingService';
 import TelemetryEventModel from '../domain/telemetryEventModel';
 
+type TelemetryEventType = 'contentloaded';
+
 export default class EventHandlerService implements IEventHandlerService {
     private static instance: EventHandlerService;
     private eventEmitter: EventEmitter;
@@ -42,7 +44,7 @@ export default class EventHandlerService implements IEventHandlerService {
         return this;
     }
 
-    public emit(event: string, ...args: any[]): this {
+    public emit(event: TelemetryEventType, ...args: any[]): this {
         this.eventEmitter.emit(event, args);
         return this;
     }
@@ -55,12 +57,10 @@ export default class EventHandlerService implements IEventHandlerService {
 
         /** Let the command agent know we are loaded */
         this.emit('contentloaded');
-
     }
 
     public handleLoadEvent(event: Event): void {
         const requestStart = window.performance.timing.requestStart;
-        /** TODO: Send performance information */
         const domContentLoadedEventStart = window.performance.timing.domContentLoadedEventStart;
         const domContentLoadedEventEnd = window.performance.timing.domContentLoadedEventEnd;
         // tslint:disable-next-line:max-line-length
@@ -85,6 +85,9 @@ export default class EventHandlerService implements IEventHandlerService {
         }, []);
         grouped.map((g: IListener) =>
             element.node.addEventListener(g.type, (event) => handler
+                /** TODO: Emit an event
+                 * Emit event and element to 'telemetry' -- eventHandler is listening for this
+                 */
                 ? handler(event) : this.defaultEventHandler(event, element)));
     }
 

@@ -6,11 +6,14 @@ import LogService from './logService';
 import { CreateAction } from '../domain/actions/createAction';
 import { SendAction } from '../domain/actions/sendAction';
 import { SendCommand } from '../domain/commands/sendCommand';
+import { IReportingService } from './interfaces/ireportingService';
+import ConsoleReportingService from './consoleReportingService';
 
 export class CommandService implements ICommandService {
     private static instance: CommandService;
     private commandAgent: CommandAgent;
     private logger: ILogger;
+    private reportingService: IReportingService;
 
     public static getInstance(): CommandService {
         if (!CommandService.instance) {
@@ -32,6 +35,12 @@ export class CommandService implements ICommandService {
         this.commandAgent.executeCommand(command, ...parameters);
     }
 
+    public intialize(logger?: ILogger, reportingService?: IReportingService) {
+        this.logger = logger || CommandService.instance.logger || LogService.getInstance();
+        this.reportingService = reportingService || CommandService.instance.reportingService
+            || new ConsoleReportingService();
+    }
+
     private constructor(logger?: ILogger) {
         this.logger = logger || LogService.getInstance();
         this.commandAgent = new CommandAgent(this.logger);
@@ -42,7 +51,7 @@ export class CommandService implements ICommandService {
         const create = new CreateCommand(createAction);
         this.commandAgent.addCommand(create);
 
-        const sendAction = new SendAction();
+        const sendAction = new SendAction(this.reportingService);
         const send = new SendCommand(sendAction);
         this.commandAgent.addCommand(send);
     }
