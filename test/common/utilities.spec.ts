@@ -1,7 +1,7 @@
 import Utilities from '../../src/common/utilities';
 import { expect } from 'chai';
 
-describe.only('Utilities', () => {
+describe('Utilities', () => {
     it('randomNumber returns a random number inbetween min-max (6, 20)', () => {
         const min = 6, max = 20;
         const value = Utilities.randomNumber(min, max);

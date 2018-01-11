@@ -1,3 +1,3 @@
 export interface IAction {
-    action(): void;
+    action(...parameters: string[]): void;
 }

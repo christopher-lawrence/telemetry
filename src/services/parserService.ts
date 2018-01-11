@@ -2,8 +2,6 @@ import { IParserService } from './interfaces/iParserService';
 import { IParser } from '../parsers/interfaces/iParser';
 import DomParser from '../parsers/domParser';
 import { IElementListener } from '../domain/iElementListener';
-import { IListenerService } from './interfaces/iListenerService';
-import ListenerService from './listenerService';
 import { ILogger } from './interfaces/iLogger';
 import LogService from './logService';
 import JQueryParser from '../parsers/jqueryParser';

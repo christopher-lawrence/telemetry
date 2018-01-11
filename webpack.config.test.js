@@ -14,10 +14,11 @@ module.exports = {
         jquery1_12ParserBrowserTest: "./test/parsers/inBrowserTests/jquery1_12Parser.test.ts",
         jquery2ParserBrowserTest: "./test/parsers/inBrowserTests/jquery2Parser.test.ts",
         jquery3ParserBrowserTest: "./test/parsers/inBrowserTests/jquery3Parser.test.ts",
-        listenerServiceBrowserTest: "./test/parsers/inBrowserTests/listenerService.test.ts",
+        eventHandlerServiceBrowserTest: "./test/parsers/inBrowserTests/eventHandlerService.test.ts",
 
         /** Commands */
-        createCommandBrowserTest: "./test/commands/inBrowserTests/create.test.ts"
+        createCommandBrowserTest: "./test/commands/inBrowserTests/create.test.ts",
+        sendCommandBrowserTest: "./test/commands/inBrowserTests/send.test.ts"
     },
     output: {
         path: path.join(__dirname, 'test', 'dist'),

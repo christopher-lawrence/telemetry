@@ -1,65 +1,29 @@
-import { ITelemetryTarget, TelemetryTargetTypes } from './itelemetryTarget';
-import { IElementListener } from './ielementListener';
+import { ICookieManager } from './cookieManager/ICookieManager';
+import { CookieManager } from './cookieManager/cookieManager';
+import { ITraversal } from './models/traversal';
 
-export default class TelemetryModel {
-    public readonly page: string;
-    public readonly target: ITelemetryTarget;
-    public readonly type: string;
-    public readonly originalEvent: Event;
-    public readonly telemetryElement: IElementListener;
+export class TelemetryModel {
+    /** TODO: PageStats */
+    private page: string;
+    private customObject: any;
+    private cookieManager: ICookieManager;
 
-    constructor(event: Event, telemetryElement: IElementListener) {
-        this.originalEvent = event;
+    constructor(customObject: any) {
+        this.customObject = customObject;
         this.page = window.location.href;
-        this.type = event.type;
-        this.target = this.getTarget();
-        this.telemetryElement = telemetryElement;
+        this.cookieManager = new CookieManager();
     }
 
-    private getTarget(): ITelemetryTarget {
-        const elementTarget = this.originalEvent.target as Element;
-        if (elementTarget) {
-            const target: ITelemetryTarget = {
-                attributeString: this.getAttributeString(elementTarget.attributes),
-                tagName: elementTarget.tagName,
-                type: TelemetryTargetTypes.element,
+    public getDTO() {
+        const clientId = this.cookieManager.getTraversalCookie();
+        const dto: any = {};
+        if (clientId) {
+            const traversal = clientId as ITraversal;
+            dto[traversal.clientId] = {
+                customObject: this.customObject,
+                page: this.page,
             };
-            return target;
         }
-
-        const windowTarget = this.originalEvent.target as Window;
-        if (windowTarget) {
-            const target: ITelemetryTarget = {
-                attributeString: '',
-                tagName: 'window',
-                type: TelemetryTargetTypes.window,
-            };
-            return target;
-        }
-
-        const documentTarget = this.originalEvent.target as Document;
-        if (documentTarget) {
-            const target: ITelemetryTarget = {
-                attributeString: '',
-                tagName: 'document',
-                type: TelemetryTargetTypes.document,
-            };
-            return target;
-        }
-
-        return {
-            attributeString: '',
-            tagName: '',
-            type: TelemetryTargetTypes.unknown,
-        } as ITelemetryTarget;
-    }
-
-    private getAttributeString(attributes: NamedNodeMap): string {
-        const stringify: string[] = [];
-        for (let i = 0; i < attributes.length; i++) {
-            const attr = attributes.item(i);
-            stringify.push(`${attr.nodeName}: ${attr.value}`);
-        }
-        return stringify.join(',');
+        return dto;
     }
 }

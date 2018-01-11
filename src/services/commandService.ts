@@ -4,11 +4,16 @@ import { CommandAgent } from '../domain/framework/commandAgent';
 import { ILogger } from './interfaces/iLogger';
 import LogService from './logService';
 import { CreateAction } from '../domain/actions/createAction';
+import { SendAction } from '../domain/actions/sendAction';
+import { SendCommand } from '../domain/commands/sendCommand';
+import { IReportingService } from './interfaces/ireportingService';
+import ConsoleReportingService from './consoleReportingService';
 
 export class CommandService implements ICommandService {
     private static instance: CommandService;
     private commandAgent: CommandAgent;
     private logger: ILogger;
+    private reportingService: IReportingService;
 
     public static getInstance(): CommandService {
         if (!CommandService.instance) {
@@ -27,7 +32,13 @@ export class CommandService implements ICommandService {
             const captureAllEvents = parameters.length > 1 ? parameters[1] : false;
             this.initializeCommands(parameters[0], captureAllEvents);
         }
-        this.commandAgent.executeCommand(command);
+        this.commandAgent.executeCommand(command, ...parameters);
+    }
+
+    public intialize(logger?: ILogger, reportingService?: IReportingService) {
+        this.logger = logger || CommandService.instance.logger || LogService.getInstance();
+        this.reportingService = reportingService || CommandService.instance.reportingService
+            || new ConsoleReportingService();
     }
 
     private constructor(logger?: ILogger) {
@@ -40,7 +51,9 @@ export class CommandService implements ICommandService {
         const create = new CreateCommand(createAction);
         this.commandAgent.addCommand(create);
 
-        /** TODO: Add more commands here */
+        const sendAction = new SendAction(this.reportingService);
+        const send = new SendCommand(sendAction);
+        this.commandAgent.addCommand(send);
     }
 
     private validateClientId(clientId: string): boolean {

@@ -9,8 +9,8 @@
         "build:testBundles": "webpack --config webpack.config.test.js",
         "build:testBundles:watch": "webpack --config webpack.config.test.js --watch",
         "deploy": "npm run build && npm run test",
-        "start:dev": "webpack-dev-server --open",
-        "start:devTest": "webpack-dev-server --open --config webpack.config.test.js -d",
+        "start:dev": "webpack-dev-server",
+        "start:devTest": "webpack-dev-server --config webpack.config.test.js -d",
         "test": "mocha -r ts-node/register test/**/*.spec.ts",
         "lint": "tslint --project ./"
     },
