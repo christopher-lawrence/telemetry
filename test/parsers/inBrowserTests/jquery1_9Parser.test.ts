@@ -8,21 +8,21 @@ describe('jQuery 1.9 parser', () => {
         allElements = document.getElementsByTagName('*');
     });
 
-    it('parses the test file and returns the correct number of events found (5)', (done) => {
+    it('parses the test file and returns the correct number of events found (6)', (done) => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
-            expect(result.length).to.be.eq(5, 'parser did not return correct number of elementListeners');
+            expect(result.length).to.be.eq(6, 'parser did not return correct number of elementListeners');
             done();
         }, 500);
     });
 
-    it('parses the test file and returns the correct number of events (6)', (done) => {
+    it('parses the test file and returns the correct number of events (7)', (done) => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
             const test = result.map((r) => r.listeners.length).reduce((a, b) => a + b, 0);
-            expect(test).to.be.equal(6, 'parser did not return the correct number of events');
+            expect(test).to.be.equal(7, 'parser did not return the correct number of events');
             done();
         }, 500);
     });

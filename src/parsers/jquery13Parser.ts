@@ -34,28 +34,31 @@ export default class JQuery13Parser implements IParser {
         const cache = (jQuery as any).cache;
 
         for (const i in cache) {
-            const listeners: IListener[] = [];
             if (typeof cache[i].events === 'object') {
                 const nEventNode = cache[i].handle.elem;
 
                 for (const type in cache[i].events) {
                     const oEvent = cache[i].events[type];
-                    let iFunctionIndex: any;
-                    for (iFunctionIndex in oEvent) {
-                        break;
+                    /** jQuery 1.3 puts an eventhandler for load/unload on window -- skip these */
+                    if (nEventNode === window && (type === 'load' || type === 'unload')) {
+                        continue;
                     }
-
-                    const func = oEvent[iFunctionIndex].toString();
-                    listeners.push({
-                        func: func,
-                        source: this.parserName,
-                        type: type,
-                    });
+                    const listeners: IListener[] = [];
+                    for (const iFunctionIndex in oEvent) {
+                        const func = oEvent[iFunctionIndex].toString();
+                        listeners.push({
+                            func: func,
+                            source: this.parserName,
+                            type: type,
+                        });
+                    }
+                    if (listeners.length > 0) {
+                        foundElements.push({
+                            listeners: listeners,
+                            node: nEventNode,
+                        });
+                    }
                 }
-                foundElements.push({
-                    listeners: listeners,
-                    node: nEventNode,
-                });
             }
         }
         return foundElements;

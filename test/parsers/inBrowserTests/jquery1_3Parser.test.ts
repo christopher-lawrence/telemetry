@@ -20,12 +20,12 @@ describe('jQuery 1.3 parser', () => {
         }, 500);
     });
 
-    it('parses the test file and returns the correct number of events (8)', (done) => {
+    it('parses the test file and returns the correct number of events (7)', (done) => {
         setTimeout(() => {
             const parser = new JQueryParser();
             const result = parser.parse(allElements);
             const test = result.map((r) => r.listeners.length).reduce((a, b) => a + b, 0);
-            expect(test).to.be.equal(8, 'parser did not return the correct number of events');
+            expect(test).to.be.equal(7, 'parser did not return the correct number of events');
             done();
         }, 500);
     });
