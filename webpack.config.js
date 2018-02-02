@@ -6,7 +6,7 @@ module.exports = {
         telemetry: "./src/telemetry.ts"
     },
     output: {
-        path: __dirname + '/dist',
+        path: __dirname + '/dist/telemetry',
         filename: "[name].js",
         devtoolModuleFilenameTemplate: '[absolute-resource-path]'
     },
@@ -36,6 +36,9 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            comments: false,
         })
     ]
 };
