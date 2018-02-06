@@ -14,7 +14,7 @@
         "deploy": "npm run build && npm run test",
         "start:dev": "webpack-dev-server",
         "start:devTest": "webpack-dev-server --config webpack.config.test.js -d",
-        "start:docker": "docker run -p 3000:80 telemetry",
+        "start:docker": "NODE_ENV=development docker run -p 3000:80 telemetry",
         "test": "mocha -r ts-node/register test/**/*.spec.ts",
         "lint": "tslint --project ./"
     },
@@ -31,6 +31,7 @@
         "@types/jquery": "^3.2.16",
         "@types/jsdom": "^11.0.4",
         "@types/mocha": "^2.2.44",
+        "@types/node": "^9.4.0",
         "@types/sinon": "^4.0.0",
         "@types/underscore": "^1.8.5",
         "chai": "^4.1.2",
@@ -50,6 +51,8 @@
         "webpack-dev-server": "^2.9.4"
     },
     "dependencies": {
+        "aws-sdk": "^2.188.0",
+        "body-parser": "^1.18.2",
         "express": "^4.16.2"
     }
 }
