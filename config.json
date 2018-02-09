@@ -1,0 +1,4 @@
+{
+    "webserver": "http://localhost:3000",
+    "production_secret": "##REPLACE_ME##"
+}

@@ -41,9 +41,10 @@ export class CommandService implements ICommandService {
             || new ConsoleReportingService();
     }
 
-    private constructor(logger?: ILogger) {
+    private constructor(logger?: ILogger, reportingService?: IReportingService) {
         this.logger = logger || LogService.getInstance();
         this.commandAgent = new CommandAgent(this.logger);
+        this.reportingService = reportingService || new ConsoleReportingService();
     }
 
     private initializeCommands(clientId: string, captureAllEvents: boolean) {

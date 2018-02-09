@@ -27,11 +27,10 @@ export default class EventHandlerService implements IEventHandlerService {
     }
 
     // tslint:disable:align
-    public static initialize(logger?: ILogger, commandService?: ICommandService,
-        eventEmitter?: EventEmitter, reportingService?: IReportingService): void {
-        if (!EventHandlerService.instance) {
-            EventHandlerService.instance = new EventHandlerService(logger, commandService, eventEmitter);
-        }
+    public initialize(logger?: ILogger, eventEmitter?: EventEmitter, reportingService?: IReportingService): void {
+        this.logger = logger || this.logger;
+        this.eventEmitter = eventEmitter || this.eventEmitter;
+        this.reportingService = reportingService || this.reportingService;
     }
 
     public on(event: string, listener: (...args: any[]) => void): this {
@@ -94,6 +93,7 @@ export default class EventHandlerService implements IEventHandlerService {
     private defaultEventHandler(event: Event, element: IElementListener): void {
         this.logger.debug('[EventHandlerService]:[defaultEventHandler]');
         const telemetryEvent = new TelemetryEventModel(event, element);
+        /** TODO: The TelemetryEventModel does not have a ClientId */
         this.reportingService.reportEvent(telemetryEvent);
     }
 

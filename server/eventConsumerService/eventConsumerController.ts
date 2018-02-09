@@ -13,7 +13,7 @@ export class EventConsumerController implements IBaseController {
     }
 
     public initialize(): express.Router {
-        this.router.post('/', (req: express.Request, res: express.Response, next: express.NextFunction) =>
+        this.router.post('/event', (req: express.Request, res: express.Response, next: express.NextFunction) =>
             this.eventConsumerService.consumeEvent(req, res, next));
         return this.router;
     }

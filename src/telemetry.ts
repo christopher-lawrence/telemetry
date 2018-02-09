@@ -3,10 +3,15 @@ import LogService from './services/logService';
 import ConsoleLogger from './domain/framework/consoleLogger';
 import ParserService from './services/parserService';
 import { CommandService } from './services/commandService';
+import { EventReportingService } from './services/eventReportingService';
 
 if (typeof (window) !== 'undefined') {
     const eventHandler = EventHandlerService.getInstance();
     const commandService = CommandService.getInstance();
+    const reportintService = new EventReportingService();
+    /** TODO: Have a better default instead of having to call initialize */
+    eventHandler.initialize(undefined, undefined, reportintService);
+    commandService.intialize(undefined, reportintService);
     LogService.initialize(new ConsoleLogger());
 
     /** TODO: Command service

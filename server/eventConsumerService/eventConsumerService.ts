@@ -6,6 +6,6 @@ export class EventConsumerService implements IEventConsumerService {
         /** TODO: implement further */
         // tslint:disable-next-line:no-console
         console.log(req.body);
-        res.send(200);
+        res.sendStatus(200);
     }
 }

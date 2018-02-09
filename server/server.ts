@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
 import { EventConsumerController } from './eventConsumerService/eventConsumerController';
 
 const app = express();
@@ -16,7 +17,7 @@ const logger = (req: express.Request, res: express.Response, next: express.NextF
 };
 
 app.use(logger);
-app.use(bodyParser());
+app.use(cors());
 
 let port = 80;
 
@@ -31,7 +32,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 /** Setup routes */
 const eventConsumerController = new EventConsumerController();
-app.use('/telemetryEvent', eventConsumerController.initialize());
+app.use('/telemetry', bodyParser.json(), eventConsumerController.initialize());
 
 // tslint:disable-next-line:no-console
 app.listen(port, () => console.log(`Web server listening on port ${port}`));

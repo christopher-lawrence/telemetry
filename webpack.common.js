@@ -1,5 +1,7 @@
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
+
+const config = require('./config.json');
 
 module.exports = {
     entry: {
@@ -9,12 +11,6 @@ module.exports = {
         path: __dirname + '/dist/telemetry',
         filename: "[name].js",
         devtoolModuleFilenameTemplate: '[absolute-resource-path]'
-    },
-    // Enable source maps
-    devtool: 'inline-source-map',
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        port: 8080
     },
     resolve: {
         extensions: ['*', '.webpack.js', '.web.js', '.ts', '.js']
@@ -35,10 +31,10 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production'),
+                '__WEB_SERVER__': JSON.stringify(config.webserver),
+            }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            comments: false,
-        })
     ]
 };
