@@ -10,15 +10,17 @@ export class MockReportingService implements IReportingService {
     public reportCallCount: number = 0;
     public reportCallParameter: TelemetryModel;
 
-    public reportEvent(telemetryEvent: TelemetryEventModel): void {
+    public reportEvent(telemetryEvent: TelemetryEventModel): Promise<void> {
         this.reportEventCalled = true;
         this.reportEventCallCount++;
         this.reportEventCallParameter = telemetryEvent;
+        return Promise.resolve();
     }
-    public report(telemetryModel: TelemetryModel): void {
+    public report(telemetryModel: TelemetryModel): Promise<void> {
         this.reportCalled = true;
         this.reportCallCount++;
         this.reportCallParameter = telemetryModel;
+        return Promise.resolve();
     }
 
     public resetReportEvent() {

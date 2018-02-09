@@ -8,12 +8,14 @@ import { TelemetryModel } from '../domain/telemetryModel';
 export default class ConsoleReportingService implements IReportingService {
     private logger: ILogger;
 
-    public reportEvent(telemetryEvent: TelemetryEventModel): void {
+    public reportEvent(telemetryEvent: TelemetryEventModel): Promise<void> {
         this.logger.info(telemetryEvent);
+        return Promise.resolve();
     }
 
-    public report(telemetryModel: TelemetryModel): void {
+    public report(telemetryModel: TelemetryModel): Promise<void> {
         this.logger.info(telemetryModel.getDTO());
+        return Promise.resolve();
     }
 
     constructor() {
