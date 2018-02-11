@@ -1,5 +1,5 @@
 import { IAction } from './IAction';
-import { ITraversal } from '../models/traversal';
+import { ITraversalCookie } from '../models/traversalCookie';
 import { ICookieManager } from '../cookieManager/ICookieManager';
 import { CookieManager } from '../cookieManager/cookieManager';
 import { ILogger } from '../../services/interfaces/iLogger';
@@ -30,6 +30,7 @@ export class CreateAction implements IAction {
         if (this.captureAllEvents) {
             setTimeout(() => this.startParsers(), 1000);
         }
+        this.cookieManager.setTraversalInitCookie();
     }
 
     private startParsers() {

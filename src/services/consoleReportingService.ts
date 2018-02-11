@@ -9,8 +9,8 @@ export default class ConsoleReportingService implements IReportingService {
     private logger: ILogger;
 
     public reportEvent(telemetryEvent: TelemetryEventModel): Promise<void> {
-        this.logger.info(telemetryEvent);
-        return Promise.resolve();
+        const telemetryModel = new TelemetryModel(telemetryEvent);
+        return this.report(telemetryModel);
     }
 
     public report(telemetryModel: TelemetryModel): Promise<void> {

@@ -1,4 +1,4 @@
-export interface ITraversal {
+export interface ITraversalCookie {
     clientId: string;
     id: string;
     domain?: string;

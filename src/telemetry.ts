@@ -17,7 +17,7 @@ if (typeof (window) !== 'undefined') {
     /** TODO: Command service
      * - Remove this eventually
      */
-    commandService.executeCommand('create', 'TA_00000', true);
+    commandService.executeCommand('create', 'TID_00000', true);
     commandService.executeCommand('send', {
         test: 'does this work?',
     });

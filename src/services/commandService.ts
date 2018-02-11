@@ -25,10 +25,7 @@ export class CommandService implements ICommandService {
     public executeCommand(command: string, ...parameters: any[]) {
         if (command === 'create' && parameters.length > 0) {
             const clientId = parameters[0];
-            if (!this.validateClientId(clientId)) {
-                this.logger.error(`Unknown clientId ${clientId}`);
-                return;
-            }
+            /** Removed clientId validation -- this should be done on the server any way */
             const captureAllEvents = parameters.length > 1 ? parameters[1] : false;
             this.initializeCommands(parameters[0], captureAllEvents);
         }
@@ -55,9 +52,5 @@ export class CommandService implements ICommandService {
         const sendAction = new SendAction(this.reportingService);
         const send = new SendCommand(sendAction);
         this.commandAgent.addCommand(send);
-    }
-
-    private validateClientId(clientId: string): boolean {
-        return clientId === 'TA_00000';
     }
 }

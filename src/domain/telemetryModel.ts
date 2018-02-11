@@ -1,7 +1,10 @@
 import { ICookieManager } from './cookieManager/ICookieManager';
 import { CookieManager } from './cookieManager/cookieManager';
-import { ITraversal } from './models/traversal';
+import { ITraversalCookie } from './models/traversalCookie';
 
+/**
+ * All object being sent to /telemetry/event should be wrapped in this object...DTO
+ */
 export class TelemetryModel {
     /** TODO: PageStats */
     private page: string;
@@ -15,13 +18,16 @@ export class TelemetryModel {
     }
 
     public getDTO() {
-        const clientId = this.cookieManager.getTraversalCookie();
+        const traversalCookie = this.cookieManager.getTraversalCookie();
+        const traversalInitCookie = this.cookieManager.getTraversalInitCookie();
         const dto: any = {};
-        if (clientId) {
-            const traversal = clientId as ITraversal;
-            dto[traversal.clientId] = {
+        if (traversalCookie) {
+            dto[traversalCookie.clientId] = {
                 customObject: this.customObject,
+                lastVisit: traversalInitCookie.lastVisit,
                 page: this.page,
+                traversalId: traversalCookie.id,
+                userId: traversalInitCookie.userId,
             };
         }
         return dto;

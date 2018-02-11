@@ -1,6 +1,9 @@
 import { ITelemetryTarget, TelemetryTargetTypes } from './itelemetryTarget';
 import { IElementListener } from './ielementListener';
 
+/**
+ * All events triggered on the page from Telemetry hook will emit this type
+ */
 export default class TelemetryEventModel {
     public readonly page: string;
     public readonly target: ITelemetryTarget;
