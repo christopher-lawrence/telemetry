@@ -1,5 +1,5 @@
-import TelemetryEventModel from '../../domain/telemetryEventModel';
-import { TelemetryModel } from '../../domain/telemetryModel';
+import TelemetryEventModel from '../../domain/models/telemetryEventModel';
+import { TelemetryModel } from '../../domain/models/telemetryModel';
 
 export interface IReportingService {
     reportEvent(telemetryEvent: TelemetryEventModel): Promise<any>;

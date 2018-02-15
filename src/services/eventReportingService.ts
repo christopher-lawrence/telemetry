@@ -1,6 +1,6 @@
 import { IReportingService } from './interfaces/ireportingService';
-import TelemetryEventModel from '../domain/telemetryEventModel';
-import { TelemetryModel } from '../domain/telemetryModel';
+import TelemetryEventModel from '../domain/models/telemetryEventModel';
+import { TelemetryModel } from '../domain/models/telemetryModel';
 import { ConfigService } from './configService';
 import axios, { AxiosResponse } from 'axios';
 

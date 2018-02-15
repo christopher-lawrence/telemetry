@@ -1,5 +1,5 @@
-import { ITelemetryTarget, TelemetryTargetTypes } from './itelemetryTarget';
-import { IElementListener } from './ielementListener';
+import { ITelemetryTarget, TelemetryTargetTypes } from '../ITelemetryTarget';
+import { IElementListener } from '../IElementListener';
 
 /**
  * All events triggered on the page from Telemetry hook will emit this type

@@ -1,4 +1,4 @@
-import { IListener } from './ilistener';
+import { IListener } from './IListener';
 
 export interface IElementListener {
     node: Element;

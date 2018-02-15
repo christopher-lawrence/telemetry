@@ -5,8 +5,8 @@ import { IReportingService } from '../../services/interfaces/ireportingService';
 import ConsoleReportingService from '../../services/consoleReportingService';
 import { CookieManager } from '../cookieManager/cookieManager';
 import LogService from '../../services/logService';
-import { TelemetryModel } from '../telemetryModel';
-import TelemetryEventModel from '../telemetryEventModel';
+import { TelemetryModel } from '../models/telemetryModel';
+import TelemetryEventModel from '../models/telemetryEventModel';
 
 export class SendAction implements IAction {
     private reportingService: IReportingService;

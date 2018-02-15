@@ -9,7 +9,7 @@ import { IElementListener } from '../domain/ielementListener';
 import { IListener } from '../domain/ilistener';
 import { IReportingService } from './interfaces/ireportingService';
 import ConsoleReportingService from './consoleReportingService';
-import TelemetryEventModel from '../domain/telemetryEventModel';
+import TelemetryEventModel from '../domain/models/telemetryEventModel';
 
 type TelemetryEventType = 'contentloaded';
 

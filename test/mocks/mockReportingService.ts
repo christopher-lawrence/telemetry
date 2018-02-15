@@ -1,6 +1,6 @@
 import { IReportingService } from '../../src/services/interfaces/ireportingService';
-import TelemetryEventModel from '../../src/domain/telemetryEventModel';
-import { TelemetryModel } from '../../src/domain/telemetryModel';
+import TelemetryEventModel from '../../src/domain/models/telemetryEventModel';
+import { TelemetryModel } from '../../src/domain/models/telemetryModel';
 
 export class MockReportingService implements IReportingService {
     public reportEventCalled: boolean = false;

@@ -1,9 +1,9 @@
 import { IReportingService } from './interfaces/ireportingService';
-import TelemetryEventModel from '../domain/telemetryEventModel';
+import TelemetryEventModel from '../domain/models/telemetryEventModel';
 import { ILogger } from './interfaces/iLogger';
 import LogService from './logService';
 import { IElementListener } from '../domain/ielementListener';
-import { TelemetryModel } from '../domain/telemetryModel';
+import { TelemetryModel } from '../domain/models/telemetryModel';
 
 export default class ConsoleReportingService implements IReportingService {
     private logger: ILogger;
